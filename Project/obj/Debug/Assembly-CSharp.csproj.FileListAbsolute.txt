@@ -1,0 +1,9 @@
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\UnityEditor.dll
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\UnityEngine.dll
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\nunit.framework.dll
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.dll
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.pdb
