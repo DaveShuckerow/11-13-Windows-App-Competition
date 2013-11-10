@@ -1,18 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hex : ScriptableObject {
+public class Hex {
     protected Hex upHex, ulHex, dlHex, dnHex, drHex, urHex;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public Hex getUp()
     {
@@ -75,7 +65,8 @@ public class Hex : ScriptableObject {
         ur.dlHex = this;
         finalizeNeighbors();
     }
-    private bool finalizeNeighbors()
+
+    public bool finalizeNeighbors()
     {
         if (upHex == null || ulHex == null || dlHex == null || dnHex == null || drHex == null || urHex == null)
             return false;
