@@ -26,6 +26,8 @@ public class GameboardTest : MonoBehaviour {
         DebugUtil.Assert(b.getHex("6664") == b.getHex("665"));
         print("Test 5: 451 == 46");
         DebugUtil.Assert(b.getHex("451") == b.getHex("46"));
+        print("Test 6: Getting hex from another location");
+        DebugUtil.Assert(b.getHex("45", b.getHex("1")) == b.getHex("451"));
         try
         {
             b.getHex("1111");

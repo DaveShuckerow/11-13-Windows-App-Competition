@@ -15,9 +15,11 @@ public class Gameboard {
 
     // Approach: Follow path to a target Hex.
     // Handle null hexes by returning last valid hex in list.
-    public Hex getHex(string path)
+    public Hex getHex(string path, Hex center=null)
     {
-        Hex center = hexes[0];
+        if (center == null)
+            center = hexes[0];
+
         if (path[0] == '0')
             return center;
         Hex current = center;

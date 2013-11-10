@@ -65,7 +65,28 @@ public class Hex {
         ur.dlHex = this;
         finalizeNeighbors();
     }
-
+    // Hex directions: [1, 2, 3, 4, 5, 6]
+    //                  up ul dl dn dr ur
+    public Hex getNeighbor(int dir)
+    {
+        switch (dir)
+        {
+            case 1:
+                return getUp();
+            case 2:
+                return getUl();
+            case 3:
+                return getDl();
+            case 4:
+                return getDn();
+            case 5:
+                return getDr();
+            case 6:
+                return getUr();
+            default:
+                return this;
+        }
+    }
     public bool finalizeNeighbors()
     {
         if (upHex == null || ulHex == null || dlHex == null || dnHex == null || drHex == null || urHex == null)
