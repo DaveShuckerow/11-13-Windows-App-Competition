@@ -49,6 +49,12 @@ public class Gameboard {
         return current;
     }
 
+    // Get our list of hexes:
+    public List<Hex> getHexes()
+    {
+        return new List<Hex>(hexes);
+    }
+
     // Recursively expand the game board up to its appropriate size.
     private void expand(Hex center, int times)
     {

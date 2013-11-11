@@ -7,3 +7,13 @@ C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Deb
 C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\ICSharpCode.NRefactory.dll
 C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.dll
 C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.pdb
+E:\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\Assembly-CSharp.dll
+E:\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\Assembly-CSharp.pdb
+E:\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\UnityEditor.dll
+E:\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\UnityEngine.dll
+E:\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\Mono.Cecil.dll
+E:\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\nunit.framework.dll
+E:\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.dll
+E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.pdb
