@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/**************************************************
+ * By David Shuckerow
+ * A Ship class for the boardgame.
+ * Capable of moving around the hexboard and seeing what hexes it can enter.
+ * NOTE when adding new functionality:
+ * if any old test cases fail with new behaviors, 
+ *      check the old methods for direct uses of local variables instead of calls to the getter methods.
+ *      check the test cases and that they're consistent with behavior that should be expected.
+ * 11/11/2013
+ **************************************************/
+
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +26,7 @@ public class Ship {
         List<ShipLocation> posPath = new List<ShipLocation>();
         posPath.Add(new ShipLocation(position, direction));
 
-        int movesLeft = moves;
+        int movesLeft = getMoves();
         Hex current = getPosition();
         int tempDir = direction;
 
@@ -25,9 +36,9 @@ public class Ship {
             if (nextPos == 0)
                 break;
             int diff = Math.Abs(directionDifference(tempDir, nextPos));
-            while (movesLeft >= turnCost && diff > 0)
+            while (movesLeft >= getTurnCost() && diff > 0)
             {
-                movesLeft -= turnCost;
+                movesLeft -= getTurnCost();
                 diff -= 1;
                 int dirChange = tempDir - nextPos;
                 if (dirChange > 0 && dirChange <= 3)
@@ -43,9 +54,9 @@ public class Ship {
                 while (tempDir > MAX_DIRS) tempDir -= MAX_DIRS;
                 posPath.Add(new ShipLocation(current, tempDir));
             }
-            if (movesLeft >= moveCost)
+            if (movesLeft >= getMoveCost())
             {
-                movesLeft -= 1;
+                movesLeft -= getMoveCost();
                 if (current.getNeighbor(nextPos) == null)
                 {
                     movesLeft = 0;
@@ -87,24 +98,24 @@ public class Ship {
         if (movesLeft == 0)
             return reachable;
 
-        if (movesLeft >= 1*moveCost)
+        if (movesLeft >= 1*getMoveCost())
         {
-            reachable.UnionWith(reachableHelper(movesLeft - 1*moveCost, dir, current.getNeighbor(dir)));
+            reachable.UnionWith(reachableHelper(movesLeft - 1*getMoveCost(), dir, current.getNeighbor(dir)));
         }
         
-        if (movesLeft >= 2*turnCost) {
-            reachable.UnionWith(reachableHelper(movesLeft - 1*turnCost, dir - 1, current));
-            reachable.UnionWith(reachableHelper(movesLeft - 1*turnCost, dir + 1, current));
+        if (movesLeft >= 2*getTurnCost()) {
+            reachable.UnionWith(reachableHelper(movesLeft - 1*getTurnCost(), dir - 1, current));
+            reachable.UnionWith(reachableHelper(movesLeft - 1*getTurnCost(), dir + 1, current));
         }
 
-        if (movesLeft >= 3*turnCost) {
-            reachable.UnionWith(reachableHelper(movesLeft - 2*turnCost, dir - 2, current));
-            reachable.UnionWith(reachableHelper(movesLeft - 2*turnCost, dir + 2, current));
+        if (movesLeft >= 3*getTurnCost()) {
+            reachable.UnionWith(reachableHelper(movesLeft - 2*getTurnCost(), dir - 2, current));
+            reachable.UnionWith(reachableHelper(movesLeft - 2*getTurnCost(), dir + 2, current));
         }
 
         if (movesLeft > 3*turnCost) 
         {
-            reachable.UnionWith(reachableHelper(movesLeft - 3*turnCost, dir + 3, current));
+            reachable.UnionWith(reachableHelper(movesLeft - 3*getTurnCost(), dir + 3, current));
         }
 
         return reachable;
@@ -165,8 +176,10 @@ public class ShipLocation
         direction = d;
     }
 
-    public bool Equals(ShipLocation other)
+    public bool Equals(System.Object other)
     {
+        if (!(other is ShipLocation))
+            return base.Equals(other);
         return position == other.position && direction == other.direction;
     }
 }

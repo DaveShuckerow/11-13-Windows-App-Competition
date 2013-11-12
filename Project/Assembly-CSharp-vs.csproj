@@ -53,6 +53,14 @@
      <Compile Include="Assets\Model\Gameboard\Hex\HexTest.cs" />
      <Compile Include="Assets\Model\Ship\Ship.cs" />
      <Compile Include="Assets\Model\Ship\ShipTest.cs" />
+     <Compile Include="Assets\Model\Ship\ShipTest2.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Control\ControlTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Propulsion\PropulsionTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\ShipSystemTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\Shields\ShieldSystemTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\UtilityTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest.cs" />
+     <Compile Include="Assets\README.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

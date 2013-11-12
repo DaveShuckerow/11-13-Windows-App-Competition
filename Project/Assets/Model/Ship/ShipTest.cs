@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+﻿/**************************************************
+ * By David Shuckerow
+ * Test the Ship class as of iteration 1.
+ * Updated to conform to projected specs for iteration 2.
+ * If any acceptance problems exist with this code, let me know.
+ * 11/11/2013
+ **************************************************/
+
+using UnityEngine;
 using System.Collections.Generic;
 
 public class ShipTest : MonoBehaviour {
@@ -12,9 +20,13 @@ public class ShipTest : MonoBehaviour {
     void test001GridReachability() {
         Ship s = new Ship();
         Gameboard b = new Gameboard(6);
-        s.setMoves(3);
-        s.setTurnCost(1);
-        s.setMoveCost(1);
+        s.setPropulsionCount(1);
+        PropulsionSystem p = new PropulsionSystem();
+        p.setShip(s);
+        s.addPropulsion(0, p);
+        p.setMoves(3);
+        p.setTurnCost(1);
+        p.setMoveCost(1);
         s.setPosition(b.getHex("444"));
         s.setDirection(1);
         print("Test 0: Ship basic data");
@@ -49,9 +61,13 @@ public class ShipTest : MonoBehaviour {
         print("Test 3: Path following");
         Ship s = new Ship();
         Gameboard b = new Gameboard(6);
-        s.setMoves(3);
-        s.setTurnCost(1);
-        s.setMoveCost(1);
+        s.setPropulsionCount(1);
+        PropulsionSystem p = new PropulsionSystem();
+        p.setShip(s);
+        s.addPropulsion(0, p);
+        p.setMoves(3);
+        p.setTurnCost(1);
+        p.setMoveCost(1);
         s.setPosition(b.getHex("444"));
         s.setDirection(1);
         print("Test 3-1: Path 111");
@@ -102,9 +118,13 @@ public class ShipTest : MonoBehaviour {
         print("Test 5: Invalid paths");
         Ship s = new Ship();
         Gameboard b = new Gameboard(2);
-        s.setMoves(3);
-        s.setTurnCost(1);
-        s.setMoveCost(1);
+        s.setPropulsionCount(1);
+        PropulsionSystem p = new PropulsionSystem();
+        p.setShip(s);
+        s.addPropulsion(0, p);
+        p.setMoves(3);
+        p.setTurnCost(1);
+        p.setMoveCost(1);
         s.setPosition(b.getHex("0"));
         s.setDirection(1);
         print("Test 5-1: Path 111");
@@ -119,9 +139,13 @@ public class ShipTest : MonoBehaviour {
         print("Test 4: Path positions");
         Ship s = new Ship();
         Gameboard b = new Gameboard(6);
-        s.setMoves(3);
-        s.setTurnCost(1);
-        s.setMoveCost(1);
+        s.setPropulsionCount(1);
+        PropulsionSystem p = new PropulsionSystem();
+        p.setShip(s);
+        s.addPropulsion(0, p);
+        p.setMoves(3);
+        p.setTurnCost(1);
+        p.setMoveCost(1);
         Hex p = b.getHex("444");
         print("Test 4-1: Path 111");
         s.setPosition(p); s.setDirection(1);
@@ -129,7 +153,7 @@ public class ShipTest : MonoBehaviour {
         List<ShipLocation> m = new List<ShipLocation>();
         m.Add(new ShipLocation(p, 1)); m.Add(new ShipLocation(p.getUp(), 1)); m.Add(new ShipLocation(p.getUp().getUp(), 1));
         m.Add(new ShipLocation(p.getUp().getUp().getUp(), 1));
-        DebugUtil.Assert(listEqual(l, m));
+        DebugUtil.Assert(listEqual(l,m));
         print("Test 4-2: Path 12");
         s.setPosition(p); s.setDirection(1);
         l = s.followPath("12");
