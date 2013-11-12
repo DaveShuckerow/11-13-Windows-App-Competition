@@ -5,8 +5,8 @@ public class HexController : MonoBehaviour {
     [SerializeField]
     Material[] Materials;
 
-    Hex myHex;
-    Hex upHex, ulHex, dlHex, dnHex, drHex, urHex;
+    public Hex myHex;
+    public HexController upHex, ulHex, dlHex, dnHex, drHex, urHex;
     bool initialized = false;
 
 	// Use this for initialization
@@ -22,11 +22,30 @@ public class HexController : MonoBehaviour {
     public void setHex(Hex h)
     {
         myHex = h;
-        upHex = h.getUp();
-        ulHex = h.getUl();
-        dlHex = h.getDl();
-        dnHex = h.getDn();
-        drHex = h.getDr();
-        urHex = h.getUr();
+    }
+
+    public void finalizeHexes()
+    {
+        if (upHex == null || ulHex == null || dlHex == null || dnHex == null || drHex == null || urHex == null)
+            return;
+        // UpHex:
+        upHex.drHex = urHex;
+        upHex.dlHex = ulHex;
+        // UlHex:
+        ulHex.urHex = upHex;
+        ulHex.dnHex = dlHex;
+        // DlHex:
+        dlHex.upHex = ulHex;
+        dlHex.drHex = dnHex;
+        // DnHex:
+        dnHex.ulHex = dlHex;
+        dnHex.urHex = drHex;
+        // DrHex:
+        drHex.dlHex = dnHex;
+        drHex.upHex = urHex;
+        // UrHex:
+        urHex.dnHex = drHex;
+        urHex.ulHex = upHex; 
+        initialized = true;
     }
 }

@@ -46,6 +46,11 @@ public class Ship {
             if (movesLeft >= moveCost)
             {
                 movesLeft -= 1;
+                if (current.getNeighbor(nextPos) == null)
+                {
+                    movesLeft = 0;
+                    break;
+                }
                 current = current.getNeighbor(nextPos);
                 posPath.Add(new ShipLocation(current, tempDir));
             }

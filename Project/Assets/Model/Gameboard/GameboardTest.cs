@@ -6,6 +6,7 @@ public class GameboardTest : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         test001GetHex();
+        test002Anomalies();
 	}
 	
 	// Update is called once per frame
@@ -69,5 +70,12 @@ public class GameboardTest : MonoBehaviour {
         }
         print("Tests Passed.");
 
+    }
+
+    void test002Anomalies()
+    {
+        print("Test 2: Anomalous issues with large board generation.");
+        Gameboard b = new Gameboard(5);
+        DebugUtil.Assert(b.getHex("11111") == b.getHex("11111"));
     }
 }

@@ -17,3 +17,4 @@ E:\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\ICSharpCo
 E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
 E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.dll
 E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.pdb
+C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache

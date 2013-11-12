@@ -6,6 +6,7 @@ public class ShipTest : MonoBehaviour {
         test001GridReachability();
         test002PathFollowing();
         test003PathPositions();
+        test004NullPath();
     }
 
     void test001GridReachability() {
@@ -93,6 +94,23 @@ public class ShipTest : MonoBehaviour {
         s.setPosition(p); s.setDirection(1);
         s.followPath("65");
         DebugUtil.Assert(s.getPosition() == b.getHex("6", p) && s.getDirection() == 5);
+        print("Tests passed.");
+    }
+
+    void test004NullPath()
+    {
+        print("Test 5: Invalid paths");
+        Ship s = new Ship();
+        Gameboard b = new Gameboard(2);
+        s.setMoves(3);
+        s.setTurnCost(1);
+        s.setMoveCost(1);
+        s.setPosition(b.getHex("0"));
+        s.setDirection(1);
+        print("Test 5-1: Path 111");
+        Hex p = s.getPosition();
+        s.followPath("111");
+        DebugUtil.Assert(s.getPosition() == b.getHex("11", p) && s.getDirection() == 1);
         print("Tests passed.");
     }
 
