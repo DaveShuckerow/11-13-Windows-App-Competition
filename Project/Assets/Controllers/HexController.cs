@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class HexController : MonoBehaviour {
     [SerializeField]
@@ -47,5 +48,26 @@ public class HexController : MonoBehaviour {
         urHex.dnHex = drHex;
         urHex.ulHex = upHex; 
         initialized = true;
+    }
+
+    public static Vector3 hexDirToVector(int dir)
+    {
+        switch (dir)
+        {
+            case 1:
+                return new Vector3((float)Math.Cos(3 * Math.PI / 6), 0, (float)Math.Sin(3 * Math.PI / 6));
+            case 2:
+                return new Vector3((float)Math.Cos(5 * Math.PI / 6), 0, (float)Math.Sin(5 * Math.PI / 6));
+            case 3:
+                return new Vector3((float)Math.Cos(7 * Math.PI / 6), 0, (float)Math.Sin(7 * Math.PI / 6));
+            case 4:
+                return new Vector3((float)Math.Cos(9 * Math.PI / 6), 0, (float)Math.Sin(9 * Math.PI / 6));
+            case 5:
+                return new Vector3((float)Math.Cos(11 * Math.PI / 6), 0, (float)Math.Sin(11 * Math.PI / 6));
+            case 6:
+                return new Vector3((float)Math.Cos(1 * Math.PI / 6), 0, (float)Math.Sin(1 * Math.PI / 6));
+            default:
+                return Vector3.zero;
+        }
     }
 }
