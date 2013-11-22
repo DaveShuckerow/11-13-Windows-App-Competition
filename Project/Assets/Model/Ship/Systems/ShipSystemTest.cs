@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SystemTest : MonoBehaviour {
+public class ShipSystemTest : MonoBehaviour {
 
 	void Start () {
         test001CreationAndShipAssignment();
@@ -23,7 +23,7 @@ public class SystemTest : MonoBehaviour {
         print("ShipSystem Test 1-1: Creation");
         DebugUtil.Assert((new ShipSystem()) is ShipSystem);
         print("ShipSystem Test 1-2: Ship Assignment and Access");
-        DebugUtil.Assert((new ShipSystem()).getShip() == s);
+        DebugUtil.Assert((new ShipSystem(s)).getShip() == s);
         print("ShipSystem Test 1-3: Ship Reassignment");
         ShipSystem ss = new ShipSystem();
         ss.setShip(t);

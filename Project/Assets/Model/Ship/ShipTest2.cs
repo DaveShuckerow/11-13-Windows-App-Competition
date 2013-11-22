@@ -86,7 +86,7 @@ public class ShipTest2 : MonoBehaviour {
         ControlSystem d = new ControlSystem();
         DebugUtil.Assert(s.addControl(0, d) == c && s.getControl(0) == d);
         print("Ship Test 2-3: Control System Removal");
-        DebugUtil.Assert(s.removeControl(0) == c && s.getControl(0) == null);
+        DebugUtil.Assert(s.removeControl(0) == d && s.getControl(0) == null);
         print("Ship Test 2-4: Control System out-of-bounds");
         DebugUtil.Assert(s.addControl(1, d) == d && s.getControlCount() == 1);
         DebugUtil.Assert(s.addControl(-1, c) == c && s.getControlCount() == 1);
@@ -99,8 +99,10 @@ public class ShipTest2 : MonoBehaviour {
         print("Ship Test 2-7: Duplicating a control system on a ship.");
         c = new ControlSystem();
         d = new ControlSystem();
-        s = new Ship(); s.setControlCount(2);
-        Ship t = new Ship(); t.setControlCount(2);
+        s = new Ship(); 
+        s.setControlCount(2);
+        Ship t = new Ship(); 
+        t.setControlCount(2);
         s.addControl(0, c);
         DebugUtil.Assert(s.addControl(1, c) == c && s.getControl(1) == null);
         s.removeControl(0);
@@ -128,7 +130,7 @@ public class ShipTest2 : MonoBehaviour {
         UtilitySystem v = new UtilitySystem();
         DebugUtil.Assert(s.addUtility(0, v) == u && s.getUtility(0) == v);
         print("Ship Test 3-3: Utility System Removal");
-        DebugUtil.Assert(s.removeUtility(0) == u && s.getUtility(0) == null);
+        DebugUtil.Assert(s.removeUtility(0) == v && s.getUtility(0) == null);
         print("Ship Test 3-4: Control System out-of-bounds");
         DebugUtil.Assert(s.addUtility(3, v) == v && s.getUtilityCount() == 3);
         DebugUtil.Assert(s.addUtility(-1, u) == u && s.getUtilityCount() == 3);
@@ -144,7 +146,7 @@ public class ShipTest2 : MonoBehaviour {
         s = new Ship(); s.setUtilityCount(2);
         Ship t = new Ship(); t.setUtilityCount(2);
         s.addUtility(0, u);
-        DebugUtil.Assert(s.addUtility(1, u) == u && s.addUtility(1) == null);
+        DebugUtil.Assert(s.addUtility(1, u) == u && s.getUtility(1) == null);
         s.removeUtility(0);
         print("Ship Test 3-8: Adding one utility system to multiple ships.");
         s.addUtility(0, v);
@@ -175,8 +177,8 @@ public class ShipTest2 : MonoBehaviour {
         PropulsionSystem v = new PropulsionSystem();
         DebugUtil.Assert(s.addPropulsion(0, v) == u && s.getPropulsion(0) == v);
         print("Ship Test 4-3: Propulsion System Removal");
-        DebugUtil.Assert(s.removePropulsion(0) == u && s.getPropulsion(0) == null);
-        print("Ship Test 4-4: Control System out-of-bounds");
+        DebugUtil.Assert(s.removePropulsion(0) == v && s.getPropulsion(0) == null);
+        print("Ship Test 4-4: Propulsion System out-of-bounds");
         DebugUtil.Assert(s.addPropulsion(3, v) == v && s.getPropulsionCount() == 1);
         DebugUtil.Assert(s.addPropulsion(-1, u) == u && s.getPropulsionCount() == 1);
         print("Ship Test 4-5: Get System out-of-bounds");
@@ -225,24 +227,24 @@ public class ShipTest2 : MonoBehaviour {
         print("Ship Test 4 passed.");
     }
 
-    void test005WeaponSystems()
+    void test005WeaponSystems()  
     {
-        print("Ship Test 5: Weapon Systems");
-        Ship s = new Ship();
-        Ship t = new Ship();
-        s.setMaxHP(10); s.setHP(10);
-        t.setMaxHP(10); t.setHP(10);
-        WeaponSystem w = new WeaponSystem();
-        w.setDamage(1);
-        s.setUtilityCount(3);
-        s.addUtility(0, w);
-        print("Ship Test 5-1: Fire at another ship");
-        s.fire(t, true);
-        DebugUtil.Assert(t.getHP() == 9);
-        print("Ship Test 5-2: Miss another ship");
-        s.fire(t, false);
-        DebugUtil.Assert(t.getHP() == 9);
-        print("Test 5 passed.");
+    //    print("Ship Test 5: Weapon Systems");
+    //    Ship s = new Ship();
+    //    Ship t = new Ship();
+    //    s.setMaxHP(10); s.setHP(10);
+    //    t.setMaxHP(10); t.setHP(10);
+    //    WeaponSystem w = new WeaponSystem();
+    //    w.setDamage(1);
+    //    s.setUtilityCount(3);
+    //    s.addUtility(0, w);
+    //    print("Ship Test 5-1: Fire at another ship");
+    //    s.fire(t, true);
+    //    DebugUtil.Assert(t.getHP() == 9);
+    //    print("Ship Test 5-2: Miss another ship");
+    //    s.fire(t, false);
+    //    DebugUtil.Assert(t.getHP() == 9);
+    //    print("Test 5 passed.");
     }
 
     /*
@@ -270,7 +272,7 @@ public class ShipTest2 : MonoBehaviour {
         t.setUtilityCount(3);
         t.addUtility(0, d);
         print("Ship Test 6-1: Shield Aggregation Methods");
-        Debug.Util.Assert(t.getShieldHP() == 1.5 && t.getMaxShieldHP() == 1.5 && t.getShieldRecharge() == 0.5);
+        DebugUtil.Assert(t.getShieldHP() == 1.5 && t.getMaxShieldHP() == 1.5 && t.getShieldRecharge() == 0.5);
         print("Ship Test 6-2: Damage Shield");
         s.fire(t, true);
         DebugUtil.Assert(t.getShieldHP() == 0.5 && t.getMaxShieldHP() == 1.5);

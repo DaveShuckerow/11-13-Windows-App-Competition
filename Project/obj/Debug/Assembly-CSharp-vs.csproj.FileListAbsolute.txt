@@ -18,3 +18,14 @@ E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CShar
 E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.dll
 E:\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp.pdb
 C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+D:\App\Project\obj\Debug\Assembly-CSharp.dll
+D:\App\Project\Temp\bin\Debug\Assembly-CSharp.dll
+D:\App\Project\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\App\Project\Temp\bin\Debug\UnityEditor.dll
+D:\App\Project\Temp\bin\Debug\UnityEngine.dll
+D:\App\Project\Temp\bin\Debug\Mono.Cecil.dll
+D:\App\Project\Temp\bin\Debug\nunit.framework.dll
+D:\App\Project\Temp\bin\Debug\Unity.DataContract.dll
+D:\App\Project\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+D:\App\Project\obj\Debug\Assembly-CSharp.pdb
+D:\App\Project\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
