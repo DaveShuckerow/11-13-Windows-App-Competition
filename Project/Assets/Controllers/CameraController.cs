@@ -7,10 +7,14 @@ public class CameraController : MonoBehaviour {
     public int minZoom = 100;
     public int maxZoom = 10;
     public float zoomAmount = 5;
+    private float zoomLevel = 1;
+    private float startZoomLevel = 1;
     private Vector3 prevMousePosition;
 
 	// Use this for initialization
 	void Start () {
+        zoomLevel = Camera.main.orthographicSize;
+        startZoomLevel = zoomLevel;
         prevMousePosition = Input.mousePosition;
 	}
 	
@@ -19,12 +23,13 @@ public class CameraController : MonoBehaviour {
 	    /* move with mouse */
         if (Input.GetMouseButton(0))
         {
-            Vector3 newPos = (prevMousePosition - Input.mousePosition)*Time.deltaTime*multiplier;
+            Vector3 newPos = (prevMousePosition - Input.mousePosition)*Time.deltaTime*multiplier*zoomLevel/startZoomLevel;
             transform.position += Vector3.forward*newPos.y;
             transform.position += Vector3.right * newPos.x;
         }
         prevMousePosition = Input.mousePosition;
         /* Zoom with mousewheel */
-        Camera.main.orthographicSize = Mathf.Min(Mathf.Max(Camera.main.orthographicSize-Input.GetAxis("Mouse ScrollWheel")*zoomAmount, maxZoom), minZoom);
+        zoomLevel = Mathf.Min(Mathf.Max(zoomLevel-Input.GetAxis("Mouse ScrollWheel")*zoomAmount, maxZoom), minZoom);
+        Camera.main.orthographicSize = zoomLevel;
 	}
 }
