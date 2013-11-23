@@ -90,8 +90,6 @@ public class ShipController : MonoBehaviour {
                 break;
         }
     }
-
-
 }
 
 public class ShipControllerLocation

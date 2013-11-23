@@ -134,6 +134,7 @@ public class GameboardController : MonoBehaviour {
         s.myShip.setMoves(6);
         s.myShip.setTurnCost(1);
         s.myShip.setMoveCost(1);
+        GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(s);
         return s;
     }
 
