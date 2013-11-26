@@ -131,9 +131,12 @@ public class GameboardController : MonoBehaviour {
         s.board = this;
         s.hex = position;
         s.myShip.setPosition(position.myHex);
-        s.myShip.setMoves(6);
-        s.myShip.setTurnCost(1);
-        s.myShip.setMoveCost(1);
+        PropulsionSystem ps = new PropulsionSystem();
+        s.myShip.setPropulsionCount(1);
+        s.myShip.addPropulsion(0,ps);
+        ps.setMoves(6);
+        ps.setTurnCost(1);
+        ps.setMoveCost(1);
         GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(s);
         return s;
     }
