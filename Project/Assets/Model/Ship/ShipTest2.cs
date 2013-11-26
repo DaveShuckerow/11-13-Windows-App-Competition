@@ -227,24 +227,49 @@ public class ShipTest2 : MonoBehaviour {
         print("Ship Test 4 passed.");
     }
 
+    /*
+     * Weapon Clarification:
+     *      Calling Ship.fire(Ship) will have each weapon system determine whether it hit or not when it fires.
+     *      It should return an array of booleans corresponding to whether or not the target was hit by each weapon the ship has.
+     *      
+     *      Calling Ship.fire(Ship, bool[]) will have each weapon system fire based on the corresponding boolean value.
+     *          if the input array is too short, treat systems outside the array as being false.
+     *          if the input array is too long, ignore the extra values.
+     * 
+     **/
     void test005WeaponSystems()  
     {
-    //    print("Ship Test 5: Weapon Systems");
-    //    Ship s = new Ship();
-    //    Ship t = new Ship();
-    //    s.setMaxHP(10); s.setHP(10);
-    //    t.setMaxHP(10); t.setHP(10);
-    //    WeaponSystem w = new WeaponSystem();
-    //    w.setDamage(1);
-    //    s.setUtilityCount(3);
-    //    s.addUtility(0, w);
-    //    print("Ship Test 5-1: Fire at another ship");
-    //    s.fire(t, true);
-    //    DebugUtil.Assert(t.getHP() == 9);
-    //    print("Ship Test 5-2: Miss another ship");
-    //    s.fire(t, false);
-    //    DebugUtil.Assert(t.getHP() == 9);
-    //    print("Test 5 passed.");
+        print("Ship Test 5: Weapon Systems");
+        Ship s = new Ship();
+        Ship t = new Ship();
+        s.setMaxHP(10); s.setHP(10);
+        t.setMaxHP(10); t.setHP(10);
+        WeaponSystem w = new WeaponSystem();
+        w.setDamage(1);
+        s.setUtilityCount(3);
+        s.addUtility(0, w);
+        print("Ship Test 5-1: Fire at another Ship");
+        s.fire(t, new bool[] {true});
+        DebugUtil.Assert(t.getHP() == 9);
+        print("Ship Test 5-2: Miss another Ship");
+        s.fire(t, new bool[] {false});
+        DebugUtil.Assert(t.getHP() == 9);
+        print("Ship Test 5-3: Array too short");
+        s.fire(t, new bool[] { });
+        DebugUtil.Assert(t.getHP() == 9);
+        print("Ship Test 5-4: No array");
+        bool[] result = s.fire(t);
+        DebugUtil.Assert(result.Length == 1 && (result[0] == true || result[0] == false));
+        print("Ship Test 5-5: Disabled Weapons");
+        t.setHP(10);
+        w.setStatus(false);
+        result = s.fire(t);
+        DebugUtil.Assert(result.Length == 1 && (result[0] == false));
+        print("Ship Test 5-6: Disabled Weapons hit target");
+        t.setHP(10);
+        s.fire(t, new bool[] { true });
+        DebugUtil.Assert(t.getHP() == 10);
+        print("Ship Test 5 passed.");
     }
 
     /*
@@ -255,6 +280,7 @@ public class ShipTest2 : MonoBehaviour {
      *          damageToShield = damageFromWeapon / totalShields
      *      When a shield HP goes to 0, damage dealt to it will bleed through to the hull ONLY IF no shields have health.
      *          If a shield becomes disabled while another shield is active, damage should go to that shield.
+     *      Ship.damage() will be used to damage the ship, and will return whether hull or shields was hit or both (0, 1, or 2).
      */
     void test006ShieldSystems()
     {
@@ -271,21 +297,27 @@ public class ShipTest2 : MonoBehaviour {
         d.setRecharge(0.5);
         t.setUtilityCount(3);
         t.addUtility(0, d);
+        t.setMaxHP(10);
+        t.setHP(10);
         print("Ship Test 6-1: Shield Aggregation Methods");
         DebugUtil.Assert(t.getShieldHP() == 1.5 && t.getMaxShieldHP() == 1.5 && t.getShieldRecharge() == 0.5);
         print("Ship Test 6-2: Damage Shield");
-        s.fire(t, true);
-        DebugUtil.Assert(t.getShieldHP() == 0.5 && t.getMaxShieldHP() == 1.5);
+        int dm = t.damage(1);
+        DebugUtil.Assert(t.getShieldHP() == 0.5 && t.getMaxShieldHP() == 1.5 && dm == 1);
         print("Ship Test 6-3: Penetrate Shield");
-        s.fire(t, true);
-        DebugUtil.Assert(t.getShieldHP() == 0 && t.getHP() == 9.5);
+        dm = t.damage(1);
+        print(dm);
+        print(t.getHP());
+        print(t.getShieldHP());
+        DebugUtil.Assert(t.getShieldHP() == 0 && t.getHP() == 9.5 && dm == 2);
         print("Ship Test 6-4: Disabled Shield");
         d.setShieldHP(1.5);
         d.setStatus(false);
-        s.fire(t, true);
-        DebugUtil.Assert(t.getShieldHP() == 1.5 && t.getHP() == 8.5);
+        dm = t.damage(1);
+        DebugUtil.Assert(d.getShieldHP() == 1.5 && t.getShieldHP() == 0 && t.getHP() == 8.5 && dm == 0);
         print("Ship Test 6-5: Recharge Shield");
         d.setShieldHP(0.5);
+        d.setStatus(true);
         t.repair();
         DebugUtil.Assert(t.getShieldHP() == 1);
         print("Ship Test 6-5: Multiple Shields");
@@ -295,21 +327,22 @@ public class ShipTest2 : MonoBehaviour {
         e.setMaxShieldHP(3);
         e.setShieldHP(3);
         e.setRecharge(0.1);
+        t.addUtility(0, d);
         t.addUtility(1, e);
         DebugUtil.Assert(t.getShieldHP() == 5 && t.getMaxShieldHP() == 5 && t.getShieldRecharge() == (2 * 0.5 + 3 * 0.1) / 5);
         print("Ship Test 6-6: Damage Multiple Shields");
-        s.fire(t, true);
+        t.damage(1);
         DebugUtil.Assert(t.getShieldHP() == 4 && d.getShieldHP() == 1.5 && e.getShieldHP() == 2.5);
         print("Ship Test 6-7: Penetrating Some of Multiple Shields");
         d.setShieldHP(0.1);
         e.setShieldHP(2.9);
         t.setHP(t.getMaxHP());
-        s.fire(t, true);
+        t.damage(1);
         DebugUtil.Assert(t.getShieldHP() == 2 && d.getShieldHP() == 0 && e.getShieldHP() == 2 && t.getHP() == t.getMaxHP());
         print("Ship Test 6-8: Penetrating All Shields");
         e.setShieldHP(0.1);
         d.setShieldHP(0.1);
-        s.fire(t, true);
+        t.damage(1);
         DebugUtil.Assert(t.getShieldHP() == 0 && d.getShieldHP() == 0 && e.getShieldHP() == 0 && t.getHP() == t.getMaxHP()-0.8);
         print("Ship Test 6-9: Recharge Multiple Shields");
         t.repair();

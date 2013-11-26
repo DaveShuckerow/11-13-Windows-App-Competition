@@ -16,7 +16,7 @@ using System.Collections.Generic;
 public class Ship
 {
     Hex position;
-    int moves, moveCost, turnCost, direction;
+    int direction;
     const int MAX_DIRS = 6;
     int controlSys;
     int utilSys;
@@ -27,8 +27,6 @@ public class Ship
     List<ControlSystem> controlList;
     List<UtilitySystem> utilityList;
     List<PropulsionSystem> propList;
-
-
 
     public Ship()
     {
@@ -94,7 +92,9 @@ public class Ship
     {
         HashSet<Hex> reachable = new HashSet<Hex>();
         reachable.Add(position);
-        reachable.UnionWith(reachableHelper(moves, direction, position));
+        int mov = getMoves();
+        int dir = getDirection();
+        reachable.UnionWith(reachableHelper(mov, dir, position));
         reachable.Remove(null);
         return reachable;
     }
@@ -128,7 +128,7 @@ public class Ship
             reachable.UnionWith(reachableHelper(movesLeft - 2 * (int)Math.Round(getTurnCost()), dir + 2, current));
         }
 
-        if (movesLeft > 3 * turnCost)
+        if (movesLeft > 3 * getTurnCost())
         {
             reachable.UnionWith(reachableHelper(movesLeft - 3 * (int)Math.Round(getTurnCost()), dir + 3, current));
         }
@@ -136,63 +136,54 @@ public class Ship
         return reachable;
     }
     // Getters/Setters
-    public void setMoves(int m)
-    {
-        moves = m;
-    }
     public int getMoves()
     {
-        int moves = 0;
-         for (int i = 0; i < propList.Count; i ++) {
-             if (propList[i] is PropulsionSystem && propList[i].getStatus() == true)
+        int move = 0;
+         for (int i = 0; i < propSys; i ++) {
+             if (propList[i] is PropulsionSystem && propList[i].getStatus())
              {
-                 moves += ((PropulsionSystem)propList[i]).getMoves();
+                 PropulsionSystem p = (PropulsionSystem)propList[i];
+                 move += p.getMoves();
              }
          }
-         return moves;
-    }
-    
-    public void setMoveCost(int m)
-    {
-        moveCost = m;
+         return move;
     }
     public double getMoveCost()
     {
         double daMoveCost = 0;
-        for (int i = 0; i < propList.Count; i++)
+        for (int i = 0; i < propSys; i++)
         {
-            if (propList[i] is PropulsionSystem && propList[i].getStatus() == true)
+            if (propList[i] is PropulsionSystem && propList[i].getStatus())
             {
-                daMoveCost += (((PropulsionSystem)propList[i]).getMoves() * ((PropulsionSystem)propList[i]).getMoveCost());
+                PropulsionSystem p = (PropulsionSystem)propList[i];
+                daMoveCost += p.getMoveCost()*p.getMoves();
             } 
         }
-        daMoveCost = daMoveCost / getMoves();
-        if (daMoveCost == 0)
+        if (daMoveCost <= 0.1)
         {
             daMoveCost = 0.1;
             return daMoveCost;
         }
         else
         {
-            return daMoveCost;
+            return daMoveCost/getMoves();
         }
-    }
-    public void setTurnCost(int m)
-    {
-        turnCost = m;
     }
     public double getTurnCost()
     {
         double daTurnCost = 0;
-        for (int i = 0; i < propList.Count; i++)
+        for (int i = 0; i < propSys; i++)
         {
-            if (propList[i] is PropulsionSystem && propList[i].getStatus() == true)
+            if (propList[i] is PropulsionSystem && propList[i].getStatus())
             {
-                daTurnCost += (((PropulsionSystem)propList[i]).getMoves() * ((PropulsionSystem)propList[i]).getTurnCost());
+                PropulsionSystem p = (PropulsionSystem)propList[i];
+                daTurnCost += p.getTurnCost()*p.getMoves();
             }
         }
-        daTurnCost = daTurnCost / getMoves();
-        return daTurnCost;
+        if (getMoves() < 1) {
+            return 0;
+        }
+        return daTurnCost/getMoves();
     }
     public void setDirection(int d)
     {
@@ -299,7 +290,7 @@ public class Ship
 
     public void setMoveMultiplier(double multi)
     {
-        if (multi <= 0)
+        if (multi <= 0.1)
         {
             multiplier = 0.1;
         }
@@ -318,7 +309,7 @@ public class Ship
 
     public ControlSystem addControl(int index, ControlSystem c)
     {
-        if (index >= 0 && index < controlList.Count && !controlList.Contains(c) && c.getShip() == null)
+        if (index >= 0 && index < controlSys && !controlList.Contains(c) && (c.getShip() == null || c.getShip() == this))
         {
                 if (controlList[index] != null)
                 {
@@ -341,7 +332,7 @@ public class Ship
 
     public ControlSystem removeControl(int index)
     {
-        if (index >= 0 && index < controlList.Count)
+        if (index >= 0 && index < controlSys)
         {
 
             ControlSystem c;
@@ -359,7 +350,7 @@ public class Ship
 
     public ControlSystem getControl(int index)
     {
-        if (index >= 0 && index < controlList.Count)
+        if (index >= 0 && index < controlSys)
         {
             return controlList[index];
         }
@@ -375,7 +366,7 @@ public class Ship
 
     public UtilitySystem addUtility(int index, UtilitySystem u) {
    
-        if (index >= 0 && index < utilityList.Count && !utilityList.Contains(u) && u.getShip() == null)
+        if (index >= 0 && index < utilSys && !utilityList.Contains(u) && (u.getShip() == null || u.getShip() == this))
         {
                 if (utilityList[index] != null)
                 {
@@ -391,7 +382,6 @@ public class Ship
                     u.setShip(this);
                     return u;
                 }
-            
         }
         return u;
     }
@@ -400,7 +390,7 @@ public class Ship
 
     public UtilitySystem removeUtility(int index)
     {
-         if (index >= 0 && index < utilityList.Count)
+         if (index >= 0 && index < utilSys)
         {
 
             UtilitySystem u;
@@ -417,7 +407,7 @@ public class Ship
 
     public UtilitySystem getUtility(int index)
     {
-        if (index >= 0 && index < utilityList.Count)
+        if (index >= 0 && index < utilSys)
         {
             return utilityList[index];
         }
@@ -433,7 +423,7 @@ public class Ship
 
     public PropulsionSystem addPropulsion(int index, PropulsionSystem p)
     {
-        if (index >= 0 && index < propList.Count && !propList.Contains(p) && p.getShip() == null)
+        if (index >= 0 && index < propSys && !propList.Contains(p) && (p.getShip() == null || p.getShip() == this))
         {
             if (propList[index] != null)
             {
@@ -447,18 +437,18 @@ public class Ship
             {
                 propList[index] = p;
                 p.setShip(this);
-                return p;
+                return null;
             }
           
         }
-          return p;
+        return p;
     }
        
     
 
     public PropulsionSystem removePropulsion(int index)
     {
-        if (index >= 0 && index < propList.Count)
+        if (index >= 0 && index < propSys)
         {
 
             PropulsionSystem p;
@@ -475,7 +465,7 @@ public class Ship
 
     public PropulsionSystem getPropulsion(int index)
     {
-        if (index >= 0 && index < propList.Count)
+        if (index >= 0 && index < propSys)
         {
             return propList[index];
         }
@@ -487,18 +477,43 @@ public class Ship
 
   
     // Weapon System Methods
-
-   public void fire(Ship s, bool acc)
+    public bool[] fire(Ship target)
     {
-
+        List<bool> result = new List<bool>();
+        for (int i = 0; i < utilSys; i++)
+        {
+            if (utilityList[i] is WeaponSystem)
+            {
+                WeaponSystem w = (WeaponSystem)utilityList[i];
+                result.Add(w.fire(target));
+            }
+        }
+        return result.ToArray();
+    }
+    public void fire(Ship target, bool[] acc)
+    {
+        int accCounter = 0;
+        for (int i = 0; i < utilSys; i++)
+        {
+            if (utilityList[i] is WeaponSystem)
+            {
+                WeaponSystem w = (WeaponSystem)utilityList[i];
+                if (accCounter < acc.Length)
+                    w.fire(target, acc[accCounter]);
+                else
+                    w.fire(target, false);
+                accCounter += 1;
+            }
+        }
     }
 
     // Shield System Methods
 
     public double getShieldHP() {
        double sum = 0;
-         for (int i = 0; i < utilityList.Count; i ++) {
-             if (utilityList[i] is ShieldSystem)
+         for (int i = 0; i < utilSys; i++)
+         {
+             if (utilityList[i] is ShieldSystem && utilityList[i].getStatus())
              {
                  sum += ((ShieldSystem)utilityList[i]).getShieldHP();
              }
@@ -509,9 +524,9 @@ public class Ship
     public double getMaxShieldHP()
     {
         double maxSum = 0;
-        for (int i = 0; i < utilityList.Count; i++)
+        for (int i = 0; i < utilSys; i++)
         {
-            if (utilityList[i] is ShieldSystem)
+            if (utilityList[i] is ShieldSystem && utilityList[i].getStatus())
             {
                 maxSum += ((ShieldSystem)utilityList[i]).getMaxShieldHP();
             }
@@ -522,19 +537,22 @@ public class Ship
     public double getShieldRecharge()
     {
         double rSum = 0;
-        for (int i = 0; i < utilityList.Count; i++)
+        for (int i = 0; i < utilSys; i++)
         {
-            if (utilityList[i] is ShieldSystem)
+            if (utilityList[i] is ShieldSystem && utilityList[i].getStatus())
             {
-                rSum += ((ShieldSystem)utilityList[i]).getRecharge();
+                ShieldSystem ss = (ShieldSystem)utilityList[i];
+                rSum += ss.getRecharge()*ss.getMaxShieldHP();
             }
         }
-        return rSum;
+        if (rSum == 0)
+            return 0;
+        return rSum/getMaxShieldHP();
     }
 
     public void repair()
     {
-        for (int i = 0; i < utilityList.Count; i++)
+        for (int i = 0; i < utilSys; i++)
         {
             if (utilityList[i] is ShieldSystem)
             {
@@ -542,6 +560,77 @@ public class Ship
             }
         }
     
+    }
+
+    public int damage(double dmg)
+    {
+        int activeSystems = 0;
+//        double totHP = 0;
+        for (int i=0; i<utilSys; i++) 
+        {
+            if (utilityList[i] is ShieldSystem && utilityList[i].getStatus() && ((ShieldSystem)utilityList[i]).getShieldHP() > 0)
+            {
+                //totHP += ((ShieldSystem)utilityList[i]).getShieldHP();
+                activeSystems += 1;
+            }
+        }
+        if (getShieldHP() <= 0 || activeSystems == 0)
+        {
+            // Damage the hull alone.
+            setHP(getHP()-dmg);
+            return 0;
+        }
+        else if (getShieldHP() >= dmg)
+        {
+            while (dmg > 0)
+            {
+                double damageRemaining = dmg;
+                int sysRemaining = activeSystems;
+                for (int i = 0; i < utilSys; i++)
+                {
+                    if (utilityList[i] is ShieldSystem && utilityList[i].getStatus() && ((ShieldSystem)utilityList[i]).getShieldHP() > 0)
+                    {
+                        ShieldSystem ss = (ShieldSystem)utilityList[i];
+                        double dmgDone = Math.Min(dmg / activeSystems, ss.getShieldHP());
+                        damageRemaining -= dmgDone;
+                        ss.setShieldHP(ss.getShieldHP() - dmgDone);
+                        if (ss.getShieldHP() <= 0)
+                        {
+                            sysRemaining -= 1;
+                        }
+                    }
+                }
+                dmg = damageRemaining;
+                activeSystems = sysRemaining;
+            }
+            return 1;
+        }
+        else
+        {
+            while (activeSystems > 0)
+            {
+                double damageRemaining = dmg;
+                int sysRemaining = activeSystems;
+                for (int i = 0; i < utilSys; i++)
+                {
+                    if (utilityList[i] is ShieldSystem && utilityList[i].getStatus() && ((ShieldSystem)utilityList[i]).getShieldHP() > 0)
+                    {
+                        ShieldSystem ss = (ShieldSystem)utilityList[i];
+                        double dmgDone = Math.Min(dmg / activeSystems, ss.getShieldHP());
+                        damageRemaining -= dmgDone;
+                        ss.setShieldHP(ss.getShieldHP() - dmgDone);
+                        if (ss.getShieldHP() <= 0)
+                        {
+                            sysRemaining -= 1;
+                        }
+                    }
+                }
+                dmg = damageRemaining;
+                activeSystems = sysRemaining;
+            }
+            setHP(getHP() - dmg);
+            return 2;
+        }
     }
 }
 

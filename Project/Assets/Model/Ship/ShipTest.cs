@@ -22,7 +22,6 @@ public class ShipTest : MonoBehaviour {
         Gameboard b = new Gameboard(6);
         s.setPropulsionCount(1);
         PropulsionSystem ps = new PropulsionSystem();
-        ps.setShip(s);
         s.addPropulsion(0, ps);
         ps.setMoves(3);
         ps.setTurnCost(1);
@@ -141,7 +140,6 @@ public class ShipTest : MonoBehaviour {
         Gameboard b = new Gameboard(6);
         s.setPropulsionCount(1);
         PropulsionSystem ps = new PropulsionSystem();
-        ps.setShip(s);
         s.addPropulsion(0, ps);
         ps.setMoves(3);
         ps.setTurnCost(1);

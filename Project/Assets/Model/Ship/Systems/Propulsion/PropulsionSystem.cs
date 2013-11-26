@@ -5,12 +5,7 @@ public class PropulsionSystem : ShipSystem {
     int moves;
     double moveCost;
     double turnCost;
-	// Use this for initialization
-	void Start () {
-	
-	}
 
-     
     public int getMoves() // Returns the number of moves a ship has.
     {
         return moves;
