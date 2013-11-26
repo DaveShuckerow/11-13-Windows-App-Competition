@@ -1,0 +1,2 @@
+Ship.fire() should take a target Ship and a List<boo> indicating whether the ith weapon system will hit target or not.
+Ship.fire() should also take a target Ship and no other arguments and then let each weaponsystem calculate whether or not it will hit.

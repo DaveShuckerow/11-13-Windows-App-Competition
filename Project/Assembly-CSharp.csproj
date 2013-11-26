@@ -46,8 +46,13 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Controllers\CameraController.cs" />
      <Compile Include="Assets\Controllers\GameboardController.cs" />
      <Compile Include="Assets\Controllers\HexController.cs" />
+     <Compile Include="Assets\Controllers\Menus\ActionMenu.cs" />
+     <Compile Include="Assets\Controllers\Menus\ShipFireMenu.cs" />
+     <Compile Include="Assets\Controllers\Menus\ShipMovementMenu.cs" />
+     <Compile Include="Assets\Controllers\ShipController.cs" />
      <Compile Include="Assets\DebugUtil.cs" />
      <Compile Include="Assets\Model\Gameboard\Gameboard.cs" />
      <Compile Include="Assets\Model\Gameboard\GameboardTest.cs" />

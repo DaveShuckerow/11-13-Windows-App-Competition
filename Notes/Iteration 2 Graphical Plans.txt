@@ -1,0 +1,5 @@
+Add ship view and allow it to move around.
+
+Add ship Controller and allow user input to tell the ship where to move.
+
+Add camera and allow user to move the camera around.
