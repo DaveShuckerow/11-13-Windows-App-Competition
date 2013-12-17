@@ -58,6 +58,7 @@
      <Compile Include="Assets\Model\Gameboard\GameboardTest.cs" />
      <Compile Include="Assets\Model\Gameboard\Hex\Hex.cs" />
      <Compile Include="Assets\Model\Gameboard\Hex\HexTest.cs" />
+     <Compile Include="Assets\Model\Gameboard\Hex\HexTest3.cs" />
      <Compile Include="Assets\Model\Ship\Ship.cs" />
      <Compile Include="Assets\Model\Ship\ShipTest.cs" />
      <Compile Include="Assets\Model\Ship\ShipTest2.cs" />
@@ -73,6 +74,7 @@
      <Compile Include="Assets\Model\Ship\Systems\Utility\UtilityTest.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest3.cs" />
      <Compile Include="Assets\README.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -21,7 +21,14 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	    /* move with mouse */
-        if (Input.GetMouseButton(0))
+        if (Input.touchCount == 1)
+        {
+            Vector3 newPos = new Vector3(Input.GetTouch(0).deltaPosition.x, Input.GetTouch(0).deltaPosition.y);
+            newPos = newPos * Time.deltaTime * multiplier * zoomLevel / startZoomLevel;
+            transform.position += Vector3.forward * newPos.y;
+            transform.position += Vector3.right * newPos.x;
+        }
+        else if (Input.GetMouseButton(1))
         {
             Vector3 newPos = (prevMousePosition - Input.mousePosition)*Time.deltaTime*multiplier*zoomLevel/startZoomLevel;
             transform.position += Vector3.forward*newPos.y;

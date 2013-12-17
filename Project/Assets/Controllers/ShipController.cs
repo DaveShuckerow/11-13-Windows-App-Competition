@@ -29,6 +29,13 @@ public class ShipController : MonoBehaviour {
             animType = 2;
     }
 
+    // Tell the shipcontroller to fire at another ShipController.
+    // At some other point we will add firing animations based on the bool[] given by Ship.fire(target)
+    public void fire(ShipController target)
+    {
+        myShip.fire(target.myShip);
+    }
+
     void Update()
     {
         /* Animation types:

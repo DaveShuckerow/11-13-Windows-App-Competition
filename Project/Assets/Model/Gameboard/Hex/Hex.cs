@@ -1,8 +1,60 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Hex {
     protected Hex upHex, ulHex, dlHex, dnHex, drHex, urHex;
+    protected bool reachable = true;
+
+    public bool isReachable()
+    {
+        return reachable;
+    }
+
+    public void setReachable(bool reach)
+    {
+        reachable = reach;
+    }
+
+    public int getHexDistance(Hex other)
+    {
+        if (other == null)
+            return -1;
+
+        Dictionary<Hex, int> d = new Dictionary<Hex, int>();
+        getHexDistanceHelper(other, d, 0);
+        if (d.ContainsKey(other))
+            return d[other];
+        else
+            return -1;
+    }
+
+    private void getHexDistanceHelper(Hex other, Dictionary<Hex, int> visited, int depth)
+    {
+        if (!visited.ContainsKey(this))
+        {
+            visited.Add(this, depth);
+        }
+        else if (visited[this] > depth)
+        {
+            visited[this] = depth;
+        }
+        else
+            return;
+        if (getUp() != null)
+            getUp().getHexDistanceHelper(other, visited, depth + 1);
+        if (getUl() != null)
+            getUl().getHexDistanceHelper(other, visited, depth + 1);
+        if (getDl() != null)
+            getDl().getHexDistanceHelper(other, visited, depth + 1);
+        if (getDn() != null)
+            getDn().getHexDistanceHelper(other, visited, depth + 1);
+        if (getDr() != null)
+            getDr().getHexDistanceHelper(other, visited, depth + 1);
+        if (getUr() != null)
+            getUr().getHexDistanceHelper(other, visited, depth + 1);
+    }
 
     public Hex getUp()
     {

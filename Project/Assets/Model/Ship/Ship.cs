@@ -47,6 +47,7 @@ public class Ship
             if (nextPos == 0)
                 break;
             int diff = Math.Abs(directionDifference(tempDir, nextPos));
+            Debug.Log(tempDir + " " + nextPos + " " + directionDifference(tempDir, nextPos));
             while (movesLeft >= getTurnCost() && diff > 0)
             {
                 movesLeft -= (int)Math.Round(getTurnCost());
@@ -60,7 +61,7 @@ public class Ship
                     tempDir += 1;
                 if (dirChange < -3)
                     tempDir -= 1;
-
+                //if (tempDir == 7) Debug.Log(dirChange);
                 while (tempDir <= 0) tempDir += MAX_DIRS;
                 while (tempDir > MAX_DIRS) tempDir -= MAX_DIRS;
                 posPath.Add(new ShipLocation(current, tempDir));
@@ -84,8 +85,10 @@ public class Ship
 
     private int directionDifference(int dir1, int dir2)
     {
-        int mid = MAX_DIRS / 2 + 1;
-        return (Math.Abs(mid - dir1) - Math.Abs(mid - dir2));
+        int diff = Math.Abs(dir1 - dir2);
+        if (Math.Abs(MAX_DIRS - diff) < Math.Abs(diff))
+            diff = Math.Abs(MAX_DIRS - diff);
+        return diff;
     }
 
     public HashSet<Hex> reachableHexes()
@@ -106,7 +109,8 @@ public class Ship
         while (dir > MAX_DIRS) dir -= MAX_DIRS;
 
         HashSet<Hex> reachable = new HashSet<Hex>();
-        reachable.Add(current);
+        if (current != null && current.isReachable())
+            reachable.Add(current);
 
         if (movesLeft == 0)
             return reachable;
@@ -195,8 +199,14 @@ public class Ship
     }
     public void setPosition(Hex p)
     {
-        if (p != null)
+        if (p != null && p.isReachable())
+        {
+            // Only 1 ship can occupy a hex at a time.
+            if (position != null)
+                position.setReachable(true);
             position = p;
+            p.setReachable(false);
+        }
     }
     public Hex getPosition()
     {
