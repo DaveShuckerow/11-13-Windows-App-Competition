@@ -109,6 +109,13 @@ public class ShipTest : MonoBehaviour {
         s.setPosition(p); s.setDirection(1);
         s.followPath("65");
         DebugUtil.Assert(s.getPosition() == b.getHex("6", p) && s.getDirection() == 5);
+        print("Test 3-11: Path 62");
+        ps.setMoves(6);
+        s.setPosition(p); s.setDirection(1);
+        s.followPath("62");
+        print(s.getDirection());
+        print(s.getPosition() == b.getHex("62", p));
+        DebugUtil.Assert(s.getPosition() == b.getHex("62", p) && s.getDirection() == 2);
         print("Tests passed.");
     }
 

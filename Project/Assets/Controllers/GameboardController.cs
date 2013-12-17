@@ -12,8 +12,13 @@ public class GameboardController : MonoBehaviour {
         board = new Gameboard(size);
         initDisplay();
         ShipController s = createShip("Ship1", findHexController(board.getHex("0")));
-        s.move(s.myShip.followPath("123456"));
+        //s.move(s.myShip.followPath("123456"));
 	}
+
+    void Update()
+    {
+        HexController.computeMouseHex();
+    }
 
     void initDisplay()
     {
