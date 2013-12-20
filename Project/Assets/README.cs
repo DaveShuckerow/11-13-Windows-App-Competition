@@ -10,14 +10,27 @@
  * Hex.isReachable(): If it is possible to get to a given hex.  Any hex containing a unit or obstacle
  *      Should not be reachable.
  * 
+ * Subsystem.setLevel/getLevel(): Set an integer defining how advanced a system is.
+ * Subsystem.maxLevel: An integer defining the maximum level a system can have.
+ * 
  * WeaponSystem.hitProbability(Ship target): Get probability of a hit against target.
  * WeaponSystem.computeHit(Ship target): Flip a coin weighted on hitProbability and see if it hits.
  * WeaponSystem.fire(Ship target): Use computeHit to determine whether or not a shot hits.
- *      Create BeamSystem and ProjectileSystem subclasses of WeaponSystem.
+ *      Create LaserSystem and TorpedoSystem subclasses of WeaponSystem.
+ * 
+ * LaserSystem.hitProbability:
+ *      90% at 1 hex
+ *      70% at 2 hex
+ *      50% at 3 hex
+ *      0% beyond 3 hex
+ * TorpedoSystem.hitProbability:
+ *      70% at 3 hex or less
+ *      0% beyond 3 hex
  *      
  * Make sure ships cannot stop in an unreachable hex, but that they can move through it...
- * ShipController.simulateMove(string path): Simulate your ship following the given path and 
+ * Ship.simulateMove(string path): Simulate your ship following the given path and 
  *      see what Hex it would end up in.  Make sure the Ship remains in the same location as before the call.
+ * If a Ship's path ends in an unReachable Hex, stop one Hex before.
  * 
  * Graphical elements:
  * construct layouts for...

@@ -1,0 +1,22 @@
+Control Systems:
+	Standard Sensors
+	Long Range Sensors
+	Subsystem Sensors
+	Cloaking Device
+	Anti-Cloak Sensors
+
+Weapons:
+	Laser I, II, III, IV
+	Torpedo I, II, III, IV
+
+Shields:
+	Standard Shields: I, II
+	Energy Shields	(Resistance to Lasers): I, II
+	Kinetic Shields	(Resistance to Torps): I, II
+	Regenerative Shields (High Recharge, Low Damage): I, II
+	Capacitive Shields (High Damage, Low Recharge): I, II
+	
+Engines:
+	Plasma Engines: I, II
+	Nuclear Engines (High turn rate, low distance): I, II
+	Ion Engines (High distance, low turn rate): I, II

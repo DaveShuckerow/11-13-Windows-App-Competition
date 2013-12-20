@@ -32,7 +32,7 @@ public class HexTest3 : MonoBehaviour {
         print("Hex Test 1-5: Path longer than distance");
         DebugUtil.Assert(c.getHexDistance(b.getHex("124")) == 1);
         print("Hex Test 1-6: Hex out of gameboard");
-        // A hex out of the gameboard should return null.
+        // A hex out of the gameboard should return -1.
         DebugUtil.Assert(c.getHexDistance(new Hex()) == -1);
         print("Hex Test 1-7: Null Hex");
         DebugUtil.Assert(c.getHexDistance(null) == -1);

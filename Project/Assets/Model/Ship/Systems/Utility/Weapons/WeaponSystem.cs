@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class WeaponSystem : UtilitySystem {
     double damage;
+    public override int maxLevel { get { return 4; } }
 
 	// Use this for initialization
     public WeaponSystem()
@@ -24,15 +26,32 @@ public class WeaponSystem : UtilitySystem {
     {
         if (!getStatus())
             return false;
-        fire(target, true);
-        return true;
+        bool doHit = computeHit(target);
+        fire(target, doHit);
+        return doHit;
     }
 
     public void fire(Ship target, bool hit)
     {
         if (hit && getStatus() == true)
         {
-            target.damage(getDamage());
+            for (int i = 0; i < level; i++)
+                target.damage(getDamage());
         }
     }
+
+    public virtual double hitProbability(Ship target)
+    {
+        return 0.0;
+    }
+
+    public bool computeHit(Ship target)
+    {
+        double chance = hitProbability(target);
+        System.Random coin = new System.Random();
+        bool toss;
+        toss = coin.NextDouble() <= chance;
+        return toss;
+    }
+
 }

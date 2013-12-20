@@ -62,6 +62,7 @@
      <Compile Include="Assets\Model\Ship\Ship.cs" />
      <Compile Include="Assets\Model\Ship\ShipTest.cs" />
      <Compile Include="Assets\Model\Ship\ShipTest2.cs" />
+     <Compile Include="Assets\Model\Ship\ShipTest3.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Control\ControlSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Control\ControlTest.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Propulsion\PropulsionSystem.cs" />
@@ -72,6 +73,8 @@
      <Compile Include="Assets\Model\Ship\Systems\Utility\Shields\ShieldSystemTest.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\UtilitySystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\UtilityTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\LaserSystem.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\TorpedoSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest3.cs" />

@@ -32,7 +32,24 @@ public class Ship
     {
     }
 
+    public Hex simulateMove(string path)
+    {
+        Hex final; Hex start;
+        int startDirection = getDirection();
+        start = getPosition();
+        makeMove(path);
+        final = getPosition();
+        setPosition(start);
+        setDirection(startDirection);
+        return final;
+    }
+
     public List<ShipLocation> followPath(string path)
+    {
+        return makeMove(path);
+    }
+
+    private List<ShipLocation> makeMove(string path)
     {
         List<ShipLocation> posPath = new List<ShipLocation>();
         posPath.Add(new ShipLocation(position, direction));
@@ -78,8 +95,28 @@ public class Ship
                 posPath.Add(new ShipLocation(current, tempDir));
             }
         }
-        setDirection(tempDir);
-        setPosition(current);
+        if (current.isReachable() || current == getPosition())
+        {
+            setDirection(tempDir);
+            setPosition(current);
+        }
+        else
+        {
+            // Look backwoard through the posPath for a reachable hex.
+            int lastHex = 0;
+            for (int i = 0; i < posPath.Count; i++)
+            {
+                if (posPath[i].position.isReachable())
+                    lastHex = i;
+            }
+            // Remove all elements after lastHex.
+            while (posPath.Count > lastHex + 1)
+            {
+                posPath.RemoveAt(lastHex + 1);
+            }
+            setDirection(posPath[lastHex].direction);
+            setPosition(posPath[lastHex].position);
+        }
         return posPath;
     }
 
@@ -662,7 +699,5 @@ public class ShipLocation
             return base.Equals(other);
         return position == other.position && direction == other.direction;
     }
-
-
 
 }

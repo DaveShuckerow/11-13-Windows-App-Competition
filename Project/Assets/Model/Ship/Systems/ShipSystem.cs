@@ -5,12 +5,11 @@ public class ShipSystem
 {
     Ship s;
     bool status = true;
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
+    // This is some weird C# thing called a property.  I don't know exactly how it works.
+    // Google told me about it.
+    // Scott Manley bless Stack Overflow...
+    public virtual int maxLevel { get { return 1; } }
+    protected int level = 1;
     
     public ShipSystem(Ship t)
     {
@@ -39,5 +38,14 @@ public class ShipSystem
     {
         status = boo; 
     }
-    
+
+    public void setLevel(int lev)
+    {
+        level = Mathf.Min(maxLevel, Mathf.Max(1, lev));
+    }
+
+    public int getLevel()
+    {
+        return level;
+    }    
 }
