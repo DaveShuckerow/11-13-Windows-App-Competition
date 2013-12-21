@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -50,8 +50,11 @@
      <Compile Include="Assets\Controllers\GameboardController.cs" />
      <Compile Include="Assets\Controllers\HexController.cs" />
      <Compile Include="Assets\Controllers\Menus\ActionMenu.cs" />
+     <Compile Include="Assets\Controllers\Menus\Pause Menu.cs" />
+     <Compile Include="Assets\Controllers\Menus\PauseButton.cs" />
      <Compile Include="Assets\Controllers\Menus\ShipFireMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\ShipMovementMenu.cs" />
+     <Compile Include="Assets\Controllers\Menus\ShipStatus.cs" />
      <Compile Include="Assets\Controllers\ShipController.cs" />
      <Compile Include="Assets\DebugUtil.cs" />
      <Compile Include="Assets\Model\Gameboard\Gameboard.cs" />

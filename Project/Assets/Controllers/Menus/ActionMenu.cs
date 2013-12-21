@@ -2,8 +2,9 @@
 using System.Collections;
 using System;
 
-public class ActionMenu : MonoBehaviour {
-    GUISkin skin;
+public class ActionMenu : MonoBehaviour
+{
+    public GUISkin skin;
     ShipController ship;
     int expandAmount = 0;
     public float expandSpeed = 20;
@@ -22,10 +23,10 @@ public class ActionMenu : MonoBehaviour {
 
     void Update()
     {
-        if (expanded && expandAmount < Screen.width/4)
-            expandAmount += (int)Math.Round(expandSpeed *100* Time.deltaTime);
+        if (expanded && expandAmount < Screen.width / 4)
+            expandAmount += (int)Math.Round(expandSpeed * 100 * Time.deltaTime);
         if (!expanded && expandAmount >= 0)
-            expandAmount -= (int)Math.Round(expandSpeed *100* Time.deltaTime);
+            expandAmount -= (int)Math.Round(expandSpeed * 100 * Time.deltaTime);
     }
 
     void OnGUI()
@@ -39,7 +40,7 @@ public class ActionMenu : MonoBehaviour {
 
         // Draw information
         //if (ship == null)
-            //return;
+        //return;
 
         // Draw actions
         if (GUI.Button(new Rect(w - expandAmount, h / 2, expandAmount, h / 8), "Move"))
@@ -61,12 +62,12 @@ public class ActionMenu : MonoBehaviour {
 
     }
 
-    void retract()
+    public void retract()
     {
         expanded = false;
     }
 
-    void expand()
+    public void expand()
     {
         expanded = true;
     }
