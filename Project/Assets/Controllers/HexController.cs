@@ -11,6 +11,7 @@ public class HexController : MonoBehaviour {
     bool initialized = false;
 
     public static HexController mouseHex;
+    public static ShipController mouseShip;
 
 	// Use this for initialization
 	void Start () {
@@ -135,5 +136,13 @@ public class HexController : MonoBehaviour {
             }
         }
         mouseHex = nearest.GetComponent<HexController>();
+        mouseShip = null;
+        UnityEngine.Object[] ships = GameObject.FindObjectsOfType<ShipController>();
+        for (int i = 0; i < ships.Length; i++)
+        {
+            ShipController s = ((ShipController)(ships[i]));
+            if (s.hex == mouseHex)
+                mouseShip = s;
+        }
     }
 }

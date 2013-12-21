@@ -48,7 +48,7 @@ public class WeaponSystem : UtilitySystem {
     public bool computeHit(Ship target)
     {
         double chance = hitProbability(target);
-        System.Random coin = new System.Random();
+        System.Random coin = new System.Random(UnityEngine.Random.Range(1000000,1000000000));
         bool toss;
         toss = coin.NextDouble() <= chance;
         return toss;

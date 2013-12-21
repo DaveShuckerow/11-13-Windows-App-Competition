@@ -11,7 +11,7 @@ public class ShipController : MonoBehaviour {
     private double animPos = 0;
     private List<ShipControllerLocation> motion;
     private int motionIndex = 0;
-    private double animSpeed = 0.5;
+    private double animSpeed = 0.75;
     public int controlSystems, propulsionSystems, utilitySystems, shieldRadius;
 
     // Tell the shipcontroller to animate a motion to a position.
@@ -31,10 +31,31 @@ public class ShipController : MonoBehaviour {
     }
 
     // Tell the shipcontroller to fire at another ShipController.
-    // At some other point we will add firing animations based on the bool[] given by Ship.fire(target)
     public void fire(ShipController target)
     {
-        myShip.fire(target.myShip);
+        bool[] hits = myShip.fire(target.myShip);
+        UtilityMarker[] ts = gameObject.GetComponentsInChildren<UtilityMarker>();
+        Transform[] targetSystems = target.gameObject.GetComponentsInChildren<Transform>();
+        System.Array.Sort<UtilityMarker>(ts, SystemNameComparer.compareGameObjectNames);
+        int counter = 0;
+        for (int i = 0; i < myShip.getUtilityCount(); i++)
+        {
+            if (myShip.getUtility(i) is WeaponSystem)
+            {
+                // There is firing to do.
+                bool doHit = hits[counter];
+                GameObject effect;
+                WeaponEffectBehavior behavior;
+                if (myShip.getUtility(i) is LaserSystem)
+                    effect = (GameObject)Instantiate(Resources.Load<GameObject>("LaserEffect"));
+                else
+                    effect = (GameObject)Instantiate(Resources.Load<GameObject>("TorpEffect"));
+                behavior = effect.GetComponent<WeaponEffectBehavior>();
+                effect.transform.position = transform.position + Vector3.down;
+                behavior.setup(ts[i].transform, targetSystems[Random.Range(0, targetSystems.Length)], doHit);
+                counter += 1;
+            }
+        }
     }
 
     void Update()

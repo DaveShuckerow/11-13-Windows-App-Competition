@@ -7,12 +7,14 @@ public class GameboardController : MonoBehaviour {
     public int hexRad = 96;
     HashSet<HexController> hexSet;
     Gameboard board;
+
 	// Use this for initialization
 	void Start () {
         board = new Gameboard(size);
         initDisplay();
         ShipController s = createShip("BelliatCruiser", findHexController(board.getHex("0")));
-        ShipController t = createShip("BelliatFrigate", findHexController(board.getHex("34")));
+        ShipController t = createShip("BelliatFrigate", findHexController(board.getHex("23")));
+        s.fire(t);
         GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(s);
         //s.move(s.myShip.followPath("123456"));
 	}
@@ -142,11 +144,16 @@ public class GameboardController : MonoBehaviour {
         s.transform.LookAt(s.transform.position - HexController.hexDirToVector(s.myShip.getDirection()));
         s.myShip.setPosition(position.myHex);
         PropulsionSystem ps = new PropulsionSystem();
-        s.myShip.setPropulsionCount(1);
         s.myShip.addPropulsion(0,ps);
         ps.setMoves(6);
         ps.setTurnCost(1);
         ps.setMoveCost(1);
+        TorpedoSystem t1 = new TorpedoSystem();
+        LaserSystem l1 = new LaserSystem();
+        LaserSystem l2 = new LaserSystem();
+        s.myShip.addUtility(0, t1);
+        s.myShip.addUtility(1, l1);
+        s.myShip.addUtility(2, l2);
         return s;
     }
 

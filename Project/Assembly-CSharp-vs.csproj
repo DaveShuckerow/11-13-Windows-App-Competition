@@ -46,6 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Art\WeaponEffects\AnimationBehavior.cs" />
+     <Compile Include="Assets\Art\WeaponEffects\LaserEffectBehavior.cs" />
+     <Compile Include="Assets\Art\WeaponEffects\TorpEffectBehavior.cs" />
+     <Compile Include="Assets\Art\WeaponEffects\WeaponEffectBehavior.cs" />
      <Compile Include="Assets\Controllers\CameraController.cs" />
      <Compile Include="Assets\Controllers\GameController.cs" />
      <Compile Include="Assets\Controllers\GameboardController.cs" />
@@ -54,6 +58,10 @@
      <Compile Include="Assets\Controllers\Menus\ShipFireMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\ShipMovementMenu.cs" />
      <Compile Include="Assets\Controllers\ShipController.cs" />
+     <Compile Include="Assets\Controllers\SystemMarkers\ControlMarker.cs" />
+     <Compile Include="Assets\Controllers\SystemMarkers\PropulsionMarker.cs" />
+     <Compile Include="Assets\Controllers\SystemMarkers\SystemNameComparer.cs" />
+     <Compile Include="Assets\Controllers\SystemMarkers\UtilityMarker.cs" />
      <Compile Include="Assets\DebugUtil.cs" />
      <Compile Include="Assets\Model\Gameboard\Gameboard.cs" />
      <Compile Include="Assets\Model\Gameboard\GameboardTest.cs" />
@@ -81,6 +89,7 @@
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest3.cs" />
      <Compile Include="Assets\Model\Team\Team.cs" />
      <Compile Include="Assets\README.cs" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
