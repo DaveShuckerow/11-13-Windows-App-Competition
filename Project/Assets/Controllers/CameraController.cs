@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour {
 
     public float multiplier = 1;
     public int minZoom = 100;
-    public int maxZoom = 10;
+    public int maxZoom = 5;
     public float zoomAmount = 5;
     private float zoomLevel = 1;
     private float startZoomLevel = 1;

@@ -17,6 +17,7 @@ public class Ship
 {
     Hex position;
     int direction;
+    Team myTeam;
     const int MAX_DIRS = 6;
     int controlSys;
     int utilSys;
@@ -679,6 +680,25 @@ public class Ship
             return 2;
         }
     }
+
+    public Team getTeam()
+    {
+        return myTeam;
+    }
+
+    public Team setTeam(Team newTeam)
+    {
+        Team oldTeam = myTeam;
+        myTeam = newTeam;
+        if (oldTeam != null)
+            oldTeam.remove(this);
+        return oldTeam;
+    }
+
+    public void destroy()
+    {
+        setTeam(null);
+    }
 }
 
 
@@ -699,5 +719,4 @@ public class ShipLocation
             return base.Equals(other);
         return position == other.position && direction == other.direction;
     }
-
 }

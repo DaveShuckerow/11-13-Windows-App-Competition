@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Controllers\CameraController.cs" />
+     <Compile Include="Assets\Controllers\GameController.cs" />
      <Compile Include="Assets\Controllers\GameboardController.cs" />
      <Compile Include="Assets\Controllers\HexController.cs" />
      <Compile Include="Assets\Controllers\Menus\ActionMenu.cs" />
@@ -78,6 +79,7 @@
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest3.cs" />
+     <Compile Include="Assets\Model\Team\Team.cs" />
      <Compile Include="Assets\README.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

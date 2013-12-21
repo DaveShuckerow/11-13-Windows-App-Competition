@@ -17,6 +17,8 @@
  * WeaponSystem.computeHit(Ship target): Flip a coin weighted on hitProbability and see if it hits.
  * WeaponSystem.fire(Ship target): Use computeHit to determine whether or not a shot hits.
  *      Create LaserSystem and TorpedoSystem subclasses of WeaponSystem.
+ *      
+ * Ship.destroy(): Called when a ship has been destroyed.
  * 
  * LaserSystem.hitProbability:
  *      90% at 1 hex
@@ -31,6 +33,15 @@
  * Ship.simulateMove(string path): Simulate your ship following the given path and 
  *      see what Hex it would end up in.  Make sure the Ship remains in the same location as before the call.
  * If a Ship's path ends in an unReachable Hex, stop one Hex before.
+ * 
+ * Team: A class representing a team of ships.
+ * Team.add(Ship) adds a Ship to the list.  Replaces a Ship's current team if Ship has one.
+ * Team.contains(Ship) checks if a Ship is part of itself.
+ * Ship.getTeam() returns the team a ship has been added to.
+ * TODO: Team.setAI(AI) tells the team how to run AI. -- TODO!!!
+ * 
+ * GameController: A class representing a graphical game.
+ * Is responsible for managing turns and victory conditions.
  * 
  * Graphical elements:
  * construct layouts for...

@@ -11,7 +11,9 @@ public class GameboardController : MonoBehaviour {
 	void Start () {
         board = new Gameboard(size);
         initDisplay();
-        ShipController s = createShip("Ship1", findHexController(board.getHex("0")));
+        ShipController s = createShip("BelliatCruiser", findHexController(board.getHex("0")));
+        ShipController t = createShip("BelliatFrigate", findHexController(board.getHex("34")));
+        GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(s);
         //s.move(s.myShip.followPath("123456"));
 	}
 
@@ -132,9 +134,12 @@ public class GameboardController : MonoBehaviour {
         GameObject g = (GameObject)Instantiate(Resources.Load(name));
         ShipController s = g.GetComponent<ShipController>();
         s.myShip = new Ship();
+        s.myShip.setSystemCount(s.controlSystems, s.utilitySystems, s.propulsionSystems);
         s.myShip.setDirection(1);
         s.board = this;
         s.hex = position;
+        s.transform.position = position.transform.position;
+        s.transform.LookAt(s.transform.position - HexController.hexDirToVector(s.myShip.getDirection()));
         s.myShip.setPosition(position.myHex);
         PropulsionSystem ps = new PropulsionSystem();
         s.myShip.setPropulsionCount(1);
@@ -142,7 +147,6 @@ public class GameboardController : MonoBehaviour {
         ps.setMoves(6);
         ps.setTurnCost(1);
         ps.setMoveCost(1);
-        GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(s);
         return s;
     }
 

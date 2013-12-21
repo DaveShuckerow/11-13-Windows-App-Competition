@@ -12,6 +12,7 @@ public class ShipController : MonoBehaviour {
     private List<ShipControllerLocation> motion;
     private int motionIndex = 0;
     private double animSpeed = 0.5;
+    public int controlSystems, propulsionSystems, utilitySystems, shieldRadius;
 
     // Tell the shipcontroller to animate a motion to a position.
     public void move(List<ShipLocation> positions)
@@ -67,7 +68,7 @@ public class ShipController : MonoBehaviour {
                 {
                     //transform.Rotate(Vector3.up,Vector3.Angle(motion[motionIndex].direction, motion[motionIndex+1].direction)*Time.deltaTime*(float)animSpeed, Space.Self);
                     //float angle = Vector3.Angle(motion[motionIndex].direction,motion[motionIndex+1].direction);
-                    transform.rotation = Quaternion.FromToRotation(Vector3.forward, Vector3.Slerp(motion[motionIndex].direction, motion[motionIndex + 1].direction, (float)animPos));
+                    transform.rotation = Quaternion.FromToRotation(-Vector3.forward, Vector3.Slerp(motion[motionIndex].direction, motion[motionIndex + 1].direction, (float)animPos));
                     animPos += Time.deltaTime*animSpeed;
                     break;
                 }
