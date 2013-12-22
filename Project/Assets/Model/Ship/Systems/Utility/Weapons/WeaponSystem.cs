@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 
 public class WeaponSystem : UtilitySystem {
-    double damage;
+    double damage = 1.0;
     public override int maxLevel { get { return 4; } }
 
 	// Use this for initialization

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class LaserEffectBehavior : WeaponEffectBehavior {
     private bool effect = false;
+
 	// Use this for initialization
 	void Start () {
         
@@ -32,8 +33,10 @@ public class LaserEffectBehavior : WeaponEffectBehavior {
         if (myLife > lifetime / 2 && !effect && doHit)
         {
             effect = true;
-            //if (end.parent.GetComponent<ShipController>().myShip.getShieldHP() > 0)
+            if (hitShields)
                 Instantiate(Resources.Load("ShieldEffect"), end.position + Vector3.up / 2, Quaternion.identity);
+            else
+                Instantiate(Resources.Load("SmallExplosion"), end.position + Vector3.up / 2, Quaternion.identity);
         }
         if (myLife >= lifetime)
             Destroy(gameObject);

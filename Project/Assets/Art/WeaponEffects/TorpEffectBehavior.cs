@@ -18,9 +18,14 @@ public class TorpEffectBehavior : WeaponEffectBehavior {
             myLife -= 9* Time.deltaTime / 10;
         if (myLife >= lifetime)
         {
-            if (doHit)
-                Instantiate(Resources.Load("ShieldEffect"), end.position + Vector3.up / 2, Quaternion.identity);
             Destroy(gameObject);
+            if (doHit)
+            {
+                if (hitShields)
+                    Instantiate(Resources.Load("ShieldEffect"), end.position + Vector3.up / 2, Quaternion.identity);
+                else
+                    Instantiate(Resources.Load("SmallExplosion"), end.position + Vector3.up / 2, Quaternion.identity);
+            }
         }
     }
 }

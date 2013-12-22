@@ -11,7 +11,7 @@ public class ShipController : MonoBehaviour {
     private double animPos = 0;
     private List<ShipControllerLocation> motion;
     private int motionIndex = 0;
-    private double animSpeed = 0.75;
+    public double animSpeed = 0.75;
     public int controlSystems, propulsionSystems, utilitySystems, shieldRadius;
 
     // Tell the shipcontroller to animate a motion to a position.
@@ -34,6 +34,7 @@ public class ShipController : MonoBehaviour {
     public void fire(ShipController target)
     {
         bool[] hits = myShip.fire(target.myShip);
+        Debug.Log(target.myShip.getHP());
         UtilityMarker[] ts = gameObject.GetComponentsInChildren<UtilityMarker>();
         Transform[] targetSystems = target.gameObject.GetComponentsInChildren<Transform>();
         System.Array.Sort<UtilityMarker>(ts, SystemNameComparer.compareGameObjectNames);
@@ -52,7 +53,7 @@ public class ShipController : MonoBehaviour {
                     effect = (GameObject)Instantiate(Resources.Load<GameObject>("TorpEffect"));
                 behavior = effect.GetComponent<WeaponEffectBehavior>();
                 effect.transform.position = transform.position + Vector3.down;
-                behavior.setup(ts[i].transform, targetSystems[Random.Range(0, targetSystems.Length)], doHit);
+                behavior.setup(ts[i].transform, targetSystems[Random.Range(0, targetSystems.Length)], doHit, target.myShip.getShieldHP() > 0);
                 counter += 1;
             }
         }
@@ -117,6 +118,15 @@ public class ShipController : MonoBehaviour {
             case 3:
                 animType = 0;
                 break;
+        }
+
+        if (myShip.getHP() <= 0 && !GetComponent<DeathTimer>())
+        {
+            myShip.destroy();
+            gameObject.AddComponent<DeathTimer>();
+            GetComponent<DeathTimer>().lifetime = 7;
+            GameObject explosion = (GameObject)Instantiate(Resources.Load<GameObject>("BigExplosion"));
+            explosion.transform.position = transform.position + Vector3.up;
         }
     }
 }
