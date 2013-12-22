@@ -2,16 +2,24 @@
 using System.Collections;
 using System;
 
-public class ActionMenu : MonoBehaviour {
-    GUISkin skin;
+public class ActionMenu : MonoBehaviour
+{
+    public GUISkin skin;
     ShipController ship;
+    public AIController caller;
     int expandAmount = 0;
     public float expandSpeed = 20;
     bool expanded = false;
+    public bool moved;
+    public bool fired;
 
     public void setShip(ShipController s)
     {
         ship = s;
+        moved = false;
+        fired = false;
+        //ShipStatus t = gameObject.GetComponent<ShipStatus>();
+        //t.setShip(ship);
         expand();
     }
 
@@ -22,10 +30,10 @@ public class ActionMenu : MonoBehaviour {
 
     void Update()
     {
-        if (expanded && expandAmount < Screen.width/4)
-            expandAmount += (int)Math.Round(expandSpeed *100* Time.deltaTime);
+        if (expanded && expandAmount < Screen.width / 4)
+            expandAmount += (int)Math.Round(expandSpeed * 100 * Time.deltaTime);
         if (!expanded && expandAmount >= 0)
-            expandAmount -= (int)Math.Round(expandSpeed *100* Time.deltaTime);
+            expandAmount -= (int)Math.Round(expandSpeed * 100 * Time.deltaTime);
     }
 
     void OnGUI()
@@ -36,37 +44,72 @@ public class ActionMenu : MonoBehaviour {
         int w = Screen.width;
         int h = Screen.height;
         GUI.Box(new Rect(w - expandAmount, 0, expandAmount, h), "");
-
-        // Draw information
-        //if (ship == null)
-            //return;
+        if (ship == null)
+            return;
 
         // Draw actions
+        GUI.enabled = !moved;
         if (GUI.Button(new Rect(w - expandAmount, h / 2, expandAmount, h / 8), "Move"))
         {
             ShipMovementMenu m = gameObject.AddComponent<ShipMovementMenu>();
             m.setShip(ship);
+            m.skin = skin;
             retract();
         }
+        GUI.enabled = !fired;
         if (GUI.Button(new Rect(w - expandAmount, h / 2 + h / 8, expandAmount, h / 8), "Fire"))
         {
             ShipFireMenu m = gameObject.AddComponent<ShipFireMenu>();
             m.setShip(ship);
+            m.skin = skin;
             retract();
         }
+        GUI.enabled = true;
         if (GUI.Button(new Rect(w - expandAmount, h / 2 + h / 4, expandAmount, h / 8), "Done"))
         {
+            if (caller != null)
+            {
+                caller.endMove();
+                caller = null;
+            }
             retract();
         }
+
+        // Draw the ship's status:
+        double maxHP = ship.myShip.getMaxHP();
+        double currentHP = ship.myShip.getHP();
+        double maxShield = ship.myShip.getMaxShieldHP();
+        double currentShield = ship.myShip.getShieldHP();
+        int numOfMoves = ship.myShip.getMoves();
+        int counter = 0;
+        for (int i = 0; i < ship.myShip.getUtilityCount(); i++)
+        {
+            if (ship.myShip.getUtility(i) is WeaponSystem)
+            {
+                counter++;
+            }
+        }
+        int numOfWeaps = counter;
+        GUI.color = Color.white;
+        
+        GUI.Label(new Rect(w-expandAmount, h/16, expandAmount, h/16), "Hull:    " + currentHP + "/" + maxHP + "");
+        GUI.Label(new Rect(w-expandAmount, h/8, expandAmount, h/16), "Shields: " + currentShield + "/" + maxShield + "");
+        
+        GUI.Label(new Rect(900, 120, 200, 100), "Moves: ");
+        GUI.Label(new Rect(960, 120, 200, 100), "" + numOfMoves + "");
+        GUI.Label(new Rect(w-expandAmount, 120, 200, 100), "Weapons: " + numOfWeaps);
+
+        //GUI.backgroundColor = Color.red;
+        //GUI.Box(new Rect(1000, 40, 100, 140), "");
 
     }
 
-    void retract()
+    public void retract()
     {
         expanded = false;
     }
 
-    void expand()
+    public void expand()
     {
         expanded = true;
     }

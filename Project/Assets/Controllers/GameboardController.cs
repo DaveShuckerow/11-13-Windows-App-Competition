@@ -20,13 +20,13 @@ public class GameboardController : MonoBehaviour {
         teams.Add(new Team());
         teams.Add(new Team());
         ShipController s = createShip("SajedFrigate", findHexController(board.getHex("1616")));
-        ShipController t = createShip("BelliatFrigate", findHexController(board.getHex("3434")));
+        ShipController t = createShip("BelliatFrigate", findHexController(board.getHex("343")));
         shipList.Add(s);
         shipList.Add(t);
         teams[0].add(s.myShip);
         teams[1].add(t.myShip);
 
-        teams[0].setAI(new AIController());
+        teams[0].setAI(new PlayerAI());
         teams[1].setAI(new AIController());
 
         turnCounter = shipList.Count;

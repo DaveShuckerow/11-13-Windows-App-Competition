@@ -11,11 +11,11 @@ using System.Collections.Generic;
 
 public class AIController {
 
-    GameboardController myController;
-    ShipController ship;
-    ShipController target;
-    int aiState = 0;
-    double wait = 0;
+    protected GameboardController myController;
+    protected ShipController ship;
+    protected ShipController target;
+    protected int aiState = 0;
+    protected double wait = 0;
 
     public virtual void startMove(GameboardController cntrl, ShipController myShip)
     {
