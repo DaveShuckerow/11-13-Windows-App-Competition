@@ -6,24 +6,87 @@ public class GameboardController : MonoBehaviour {
     public int size;
     public int hexRad = 96;
     HashSet<HexController> hexSet;
+    public List<ShipController> shipList;
+    private int turnCounter = 0;
+    List<Team> teams;
     Gameboard board;
 
 	// Use this for initialization
 	void Start () {
         board = new Gameboard(size);
         initDisplay();
-        ShipController s = createShip("SajedFrigate", findHexController(board.getHex("0")));
-        ShipController t = createShip("BelliatCapital", findHexController(board.getHex("3")));
-        s.fire(t);
-        GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(s);
-        //s.move(s.myShip.followPath("123456"));
+        shipList = new List<ShipController>();
+        teams = new List<Team>();
+        teams.Add(new Team());
+        teams.Add(new Team());
+        ShipController s = createShip("SajedFrigate", findHexController(board.getHex("1616")));
+        ShipController t = createShip("BelliatFrigate", findHexController(board.getHex("3434")));
+        shipList.Add(s);
+        shipList.Add(t);
+        teams[0].add(s.myShip);
+        teams[1].add(t.myShip);
+
+        teams[0].setAI(new AIController());
+        teams[1].setAI(new AIController());
+
+        turnCounter = shipList.Count;
+        onMoveFinish();
+        //s.fire(t);
+        //GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(s);
+        //s.move("123456");
 	}
 
     void Update()
     {
         HexController.computeMouseHex();
+        foreach (Team t in teams)
+        {
+            if (t.getAI().getAIState() != 0)
+                t.getAI().update();
+        }
     }
 
+    // Event Handling...
+    public void onMoveFinish()
+    {
+        turnCounter += 1;
+        if (turnCounter >= shipList.Count)
+        {
+            turnCounter = 0;
+        }
+        Debug.Log("AI Things!");
+        if (shipList[turnCounter].myShip == null || shipList[turnCounter].myShip.getTeam() == null || shipList[turnCounter].myShip.getTeam().getAI() == null)
+            onMoveFinish();
+        else
+            shipList[turnCounter].myShip.getTeam().getAI().startMove(this, shipList[turnCounter]);
+    }
+
+    public void onShipDestroyed(ShipController dead)
+    {
+        if (shipList.Contains(dead))
+            shipList.Remove(dead);
+        
+        // Check and see if there is only one team remaining.
+        for (int i = 0; i < teams.Count; i++)
+        {
+            if (teams[i].size() == 0)
+            {
+                teams.Remove(teams[i]);
+                i -= 1;
+            }
+        }
+        if (teams.Count == 1)
+        {
+            onGameEnded();
+        }
+    }
+
+    public void onGameEnded()
+    {
+
+    }
+
+    // Display Creation
     void initDisplay()
     {
         Hex center = board.getHex("0"); 

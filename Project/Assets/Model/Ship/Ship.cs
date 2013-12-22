@@ -698,6 +698,7 @@ public class Ship
     public void destroy()
     {
         setTeam(null);
+        position.setReachable(true);
     }
 }
 

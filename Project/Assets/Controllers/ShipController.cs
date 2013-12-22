@@ -15,16 +15,21 @@ public class ShipController : MonoBehaviour {
     public int controlSystems, propulsionSystems, utilitySystems, shieldRadius;
 
     // Tell the shipcontroller to animate a motion to a position.
-    public void move(List<ShipLocation> positions)
+    public void move(string path)
+    {
+        makeMove(myShip.followPath(path));
+    }
+    
+    private void makeMove(List<ShipLocation> positions)
     {
         motion = new List<ShipControllerLocation>();
         animType = 1;
         animPos = 0.0;
+        motionIndex = 0;
         foreach (ShipLocation l in positions)
         {
             motion.Add(new ShipControllerLocation(l, board));
         }
-        print(positions.Count);
 
         if (motion[0].direction == motion[1].direction)
             animType = 2;
@@ -59,6 +64,11 @@ public class ShipController : MonoBehaviour {
         }
     }
 
+    public bool isDoneMoving()
+    {
+        return animType == 0;
+    }
+
     void Update()
     {
         /* Animation types:
@@ -72,6 +82,7 @@ public class ShipController : MonoBehaviour {
                 motion = null;
                 animType = -1;
                 animPos = 0.0;
+                motionIndex = 0;
                 break;
             case 1:
                 if (animPos >= 1)
@@ -117,18 +128,30 @@ public class ShipController : MonoBehaviour {
                 break;
             case 3:
                 animType = 0;
+                motionIndex = 0;
                 break;
         }
 
         if (myShip.getHP() <= 0 && !GetComponent<DeathTimer>())
         {
-            myShip.destroy();
-            gameObject.AddComponent<DeathTimer>();
-            GetComponent<DeathTimer>().lifetime = 7;
-            GameObject explosion = (GameObject)Instantiate(Resources.Load<GameObject>("BigExplosion"));
-            explosion.transform.position = transform.position + Vector3.up;
+            die();
         }
     }
+
+    void die() 
+    {
+        myShip.destroy();
+        gameObject.AddComponent<DeathTimer>();
+        GetComponent<DeathTimer>().lifetime = 7;
+        GameObject explosion = (GameObject)Instantiate(Resources.Load<GameObject>("BigExplosion"));
+        explosion.transform.position = transform.position + Vector3.up;
+    }
+
+    void OnDestroy()
+    {
+        board.onShipDestroyed(this);
+    }
+
 }
 
 public class ShipControllerLocation

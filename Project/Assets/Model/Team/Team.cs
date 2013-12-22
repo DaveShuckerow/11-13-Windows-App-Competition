@@ -4,6 +4,13 @@ using System.Collections.Generic;
 public class Team {
     private HashSet<Ship> ships;
 
+    private AIController ai;
+
+    public Team()
+    {
+        ships = new HashSet<Ship>();
+    }
+
     public Team add(Ship newShip)
     {
         ships.Add(newShip);
@@ -23,5 +30,15 @@ public class Team {
     public int size()
     {
         return ships.Count;
+    }
+
+    public void setAI(AIController a)
+    {
+        ai = a;
+    }
+
+    public AIController getAI()
+    {
+        return ai;
     }
 }

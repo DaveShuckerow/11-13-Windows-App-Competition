@@ -51,6 +51,7 @@
      <Compile Include="Assets\Art\WeaponEffects\LaserEffectBehavior.cs" />
      <Compile Include="Assets\Art\WeaponEffects\TorpEffectBehavior.cs" />
      <Compile Include="Assets\Art\WeaponEffects\WeaponEffectBehavior.cs" />
+     <Compile Include="Assets\Controllers\AI\AIController.cs" />
      <Compile Include="Assets\Controllers\CameraController.cs" />
      <Compile Include="Assets\Controllers\GameController.cs" />
      <Compile Include="Assets\Controllers\GameboardController.cs" />

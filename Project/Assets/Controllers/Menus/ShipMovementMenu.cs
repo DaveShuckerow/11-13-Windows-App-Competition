@@ -59,6 +59,6 @@ public class ShipMovementMenu : MonoBehaviour {
         string pth = HexController.hexesToPath(path);
         print(pth);
         if (pth.Length > 1)
-        ship.move(ship.myShip.followPath(pth));
+        ship.move(pth);
     }
 }
