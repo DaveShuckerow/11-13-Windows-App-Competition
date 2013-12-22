@@ -11,7 +11,10 @@ public class GameboardController : MonoBehaviour {
 	void Start () {
         board = new Gameboard(size);
         initDisplay();
-        ShipController s = createShip("Ship1", findHexController(board.getHex("0")));
+        
+        ShipController s = createShip("Ship1", findHexController(board.getHex("3")));
+        createShip("Ship1", findHexController(board.getHex("0")));
+        
         //s.move(s.myShip.followPath("123456"));
 	}
 
@@ -136,6 +139,7 @@ public class GameboardController : MonoBehaviour {
         s.board = this;
         s.hex = position;
         s.myShip.setPosition(position.myHex);
+        s.transform.position = position.transform.position;
         PropulsionSystem ps = new PropulsionSystem();
         s.myShip.setPropulsionCount(1);
         s.myShip.addPropulsion(0,ps);

@@ -37,7 +37,8 @@ public class ActionMenu : MonoBehaviour
         int w = Screen.width;
         int h = Screen.height;
         GUI.Box(new Rect(w - expandAmount, 0, expandAmount, h), "");
-
+        ShipStatus t = gameObject.AddComponent<ShipStatus>();
+        t.setShip(ship);
         // Draw information
         //if (ship == null)
         //return;
@@ -59,6 +60,7 @@ public class ActionMenu : MonoBehaviour
         {
             retract();
         }
+
 
     }
 

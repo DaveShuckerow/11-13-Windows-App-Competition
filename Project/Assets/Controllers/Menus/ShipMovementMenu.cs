@@ -56,7 +56,7 @@ public class ShipMovementMenu : MonoBehaviour
 
     void OnGUI()
     {
-        
+
         int w = Screen.width;
         int h = Screen.height;
         if (pathStatus < 2)
@@ -65,7 +65,7 @@ public class ShipMovementMenu : MonoBehaviour
         }
         if (GUI.Button(new Rect(1200, 600, 60, 40), "Cancel"))
         {
-           
+
             GetComponent<ActionMenu>().expand();
             pathStatus = 0;
             Destroy(this);
@@ -76,7 +76,7 @@ public class ShipMovementMenu : MonoBehaviour
             GUI.Label(new Rect(w / 2 - 60, 25, 400, 200), "Is this the correct path?", style);
             if (GUI.Button(new Rect(w / 2 - 60, 80, 80, 20), "Yes"))
             {
-                
+
                 giveShipPath();
                 GetComponent<ActionMenu>().expand();
                 Destroy(this);

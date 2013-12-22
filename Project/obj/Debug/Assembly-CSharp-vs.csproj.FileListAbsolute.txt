@@ -28,5 +28,5 @@ D:\App\Project\Temp\bin\Debug\nunit.framework.dll
 D:\App\Project\Temp\bin\Debug\Unity.DataContract.dll
 D:\App\Project\Temp\bin\Debug\ICSharpCode.NRefactory.dll
 D:\App\Project\obj\Debug\Assembly-CSharp.pdb
-D:\App\Project\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
 C:\Users\David\Documents\WIPs\Unity\Windows App Competition\Project\Temp\bin\Debug\Unity.DataContract.dll
+D:\App\Project\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
