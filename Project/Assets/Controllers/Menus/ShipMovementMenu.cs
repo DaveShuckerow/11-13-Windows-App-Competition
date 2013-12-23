@@ -21,7 +21,8 @@ public class ShipMovementMenu : MonoBehaviour
     void Start()
     {
         style.normal.textColor = Color.white;
-        style.fontSize = 20;
+        style.fontSize = 36;
+        style.font = Resources.Load<Font>("ECHO-Sans");
         style.alignment = TextAnchor.UpperCenter;
     }
 
@@ -46,10 +47,13 @@ public class ShipMovementMenu : MonoBehaviour
             {
                 print("Adding a hex!");
                 path.Add(HexController.mouseHex);
+                HexController.mouseHex.colorize(Color.green);
             }
             if (Input.GetMouseButtonUp(0))
             {
                 pathStatus = 2;
+                HexController finalSpot = ship.board.findHexController(ship.myShip.simulateMove(HexController.hexesToPath(path)));
+                finalSpot.colorize(Color.blue);
             }
         }
 
@@ -106,5 +110,12 @@ public class ShipMovementMenu : MonoBehaviour
         print(pth);
         if (pth.Length > 1)
             ship.move(pth);
+        // Recolor hexes.
+        foreach (HexController h in path)
+        {
+            h.colorize(Color.white);
+        }
+        HexController finalSpot = ship.board.findHexController(ship.myShip.getPosition());
+        finalSpot.colorize(Color.blue);
     }
 }

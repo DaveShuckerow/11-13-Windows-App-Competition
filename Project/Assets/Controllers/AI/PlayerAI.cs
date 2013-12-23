@@ -9,6 +9,8 @@ public class PlayerAI : AIController {
         ship = myShip;
         aiState = 1; wait = 0;
 
+        ship.hex.colorize(Color.blue);
+
         GameObject.Find("MenuProvider").GetComponent<ActionMenu>().caller = this;
         GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(myShip);
     }

@@ -54,11 +54,18 @@ public class GameboardController : MonoBehaviour {
         {
             turnCounter = 0;
         }
+        // Reset colors:
+        foreach (HexController h in hexSet)
+        {
+            h.colorize(Color.white);
+        }
+
         Debug.Log("AI Things!");
         if (shipList[turnCounter].myShip == null || shipList[turnCounter].myShip.getTeam() == null || shipList[turnCounter].myShip.getTeam().getAI() == null)
             onMoveFinish();
         else
             shipList[turnCounter].myShip.getTeam().getAI().startMove(this, shipList[turnCounter]);
+        
     }
 
     public void onShipDestroyed(ShipController dead)
@@ -232,5 +239,13 @@ public class GameboardController : MonoBehaviour {
             }
         }
         return null;
+    }
+
+    public void resetHexColors()
+    {
+        foreach (HexController hc in hexSet)
+        {
+            hc.colorize(Color.white);
+        }
     }
 }

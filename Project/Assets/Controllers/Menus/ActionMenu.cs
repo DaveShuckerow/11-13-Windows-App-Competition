@@ -92,12 +92,11 @@ public class ActionMenu : MonoBehaviour
         int numOfWeaps = counter;
         GUI.color = Color.white;
         
-        GUI.Label(new Rect(w-expandAmount, h/16, expandAmount, h/16), "Hull:    " + currentHP + "/" + maxHP + "");
-        GUI.Label(new Rect(w-expandAmount, h/8, expandAmount, h/16), "Shields: " + currentShield + "/" + maxShield + "");
-        
-        GUI.Label(new Rect(900, 120, 200, 100), "Moves: ");
-        GUI.Label(new Rect(960, 120, 200, 100), "" + numOfMoves + "");
-        GUI.Label(new Rect(w-expandAmount, 120, 200, 100), "Weapons: " + numOfWeaps);
+        GUI.Label(new Rect(w-expandAmount, h/32, expandAmount/2, h/16), "Hull:    " + currentHP + "/" + maxHP + "");
+        GUI.Label(new Rect(w-expandAmount/2, h/32, expandAmount/2, h/16), "Shields: " + currentShield + "/" + maxShield + "");
+        GUI.DrawTexture(new Rect(w - expandAmount, h / 16, expandAmount, h / 2 - h / 8), ship.GetComponent<MeshRenderer>().renderer.material.GetTexture(0), ScaleMode.ScaleToFit);
+        GUI.Label(new Rect(w-expandAmount, h/2-h/16, expandAmount/2, h/16), "Moves: " + numOfMoves);
+        GUI.Label(new Rect(w-expandAmount/2, h/2-h/16, expandAmount/2, h/16), "Weapons: " + numOfWeaps);
 
         //GUI.backgroundColor = Color.red;
         //GUI.Box(new Rect(1000, 40, 100, 140), "");

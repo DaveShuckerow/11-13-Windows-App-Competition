@@ -23,6 +23,8 @@ public class AIController {
         ship = myShip;
         aiState = 0; wait = 0;
         // Calculation of next move here.
+
+        ship.hex.colorize(Color.red);
         
         // Assess targets:
         List<ShipController> targets = new List<ShipController>(cntrl.shipList);

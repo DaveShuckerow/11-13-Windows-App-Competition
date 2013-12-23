@@ -9,12 +9,12 @@ public class ShipFireMenu : MonoBehaviour
     ShipController target;
     GUIStyle style = new GUIStyle();
 
-
     // Use this for initialization
     void Start()
     {
         style.normal.textColor = Color.white;
-        style.fontSize = 20;
+        style.fontSize = 36;
+        style.font = Resources.Load<Font>("ECHO-Sans");
         style.alignment = TextAnchor.UpperCenter;
     }
 
@@ -44,6 +44,7 @@ public class ShipFireMenu : MonoBehaviour
         if (fireStatus < 1)
         {
             GUI.Label(new Rect(w / 4, 25, w / 2, 200), "Choose a ship to fire upon.", style);
+            GUI.Label(new Rect(w / 4, 60, w / 2, 200), "Targets are marked in red.");
         }
         if (GUI.Button(new Rect(w - w / 8, h - h / 16, w / 8, h / 16), "Cancel"))
         {
@@ -76,6 +77,13 @@ public class ShipFireMenu : MonoBehaviour
     public void setShip(ShipController s)
     {
         ship = s;
+        foreach (ShipController sh in ship.board.shipList)
+        {
+            if (sh != ship && sh.myShip.getTeam() != ship.myShip.getTeam() && ship.myShip.getPosition().getHexDistance(sh.myShip.getPosition()) <= 3)
+            {
+                sh.hex.colorize(Color.red);
+            }
+        }
     }
 
     public ShipController getShip()
@@ -87,5 +95,13 @@ public class ShipFireMenu : MonoBehaviour
     {
         ship.fire(target);
         Debug.Log("PEW");
+    }
+
+    void OnDestroy()
+    {
+        if (ship != null)
+        {
+            ship.board.resetHexColors();
+        }
     }
 }

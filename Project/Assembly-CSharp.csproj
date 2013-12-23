@@ -54,6 +54,7 @@
      <Compile Include="Assets\Controllers\AI\AIController.cs" />
      <Compile Include="Assets\Controllers\AI\PlayerAI.cs" />
      <Compile Include="Assets\Controllers\CameraController.cs" />
+     <Compile Include="Assets\Controllers\Fleets\FleetCreator.cs" />
      <Compile Include="Assets\Controllers\GameController.cs" />
      <Compile Include="Assets\Controllers\GameboardController.cs" />
      <Compile Include="Assets\Controllers\HexController.cs" />

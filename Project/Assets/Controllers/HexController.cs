@@ -28,6 +28,11 @@ public class HexController : MonoBehaviour {
         myHex = h;
     }
 
+    public void colorize(Color color)
+    {
+        GetComponent<MeshRenderer>().renderer.material.color = color;
+    }
+
     public void finalizeHexes()
     {
         if (upHex == null || ulHex == null || dlHex == null || dnHex == null || drHex == null || urHex == null)
