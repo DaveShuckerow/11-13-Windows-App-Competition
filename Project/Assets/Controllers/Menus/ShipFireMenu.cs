@@ -37,6 +37,8 @@ public class ShipFireMenu : MonoBehaviour
 
     void OnGUI()
     {
+        if (GetComponent<PauseMenu>().pauseStatus == 1)
+            return;
         GUI.skin = skin;
         int w = Screen.width;
         int h = Screen.height;
@@ -102,6 +104,7 @@ public class ShipFireMenu : MonoBehaviour
         if (ship != null)
         {
             ship.board.resetHexColors();
+            ship.hex.colorize(Color.blue);
         }
     }
 }

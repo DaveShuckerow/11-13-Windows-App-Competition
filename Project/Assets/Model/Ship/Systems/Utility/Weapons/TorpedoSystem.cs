@@ -2,7 +2,12 @@
 using System.Collections;
 
 public class TorpedoSystem : WeaponSystem {
-    
+
+    public TorpedoSystem()
+    {
+        setDamage(1);
+    }
+
     public override double hitProbability(Ship target)
     {
         double chance = 0.0;

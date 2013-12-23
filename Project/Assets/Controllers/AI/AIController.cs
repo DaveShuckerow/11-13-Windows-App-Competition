@@ -47,7 +47,8 @@ public class AIController {
         if (target == null) return;
         string path = getHexPath(myShip.myShip.getPosition(), target.myShip.getPosition());
         Debug.Log(path);
-        myShip.move(path);
+        if (path.Length > 0 && path[0] != '0')
+            myShip.move(path);
         aiState = 1;
     }
 

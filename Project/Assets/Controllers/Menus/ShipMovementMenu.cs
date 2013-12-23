@@ -61,6 +61,8 @@ public class ShipMovementMenu : MonoBehaviour
 
     void OnGUI()
     {
+        if (GetComponent<PauseMenu>().pauseStatus == 1)
+            return;
         GUI.skin = skin;
         int w = Screen.width;
         int h = Screen.height;
@@ -89,6 +91,8 @@ public class ShipMovementMenu : MonoBehaviour
             }
             if (GUI.Button(new Rect(w / 2 + w/16, h/8, w/8, h/16), "No"))
             {
+                ship.board.resetHexColors();
+                ship.hex.colorize(Color.blue);
                 pathStatus = 0;
             }
         }
@@ -108,7 +112,7 @@ public class ShipMovementMenu : MonoBehaviour
         print(path.Count);
         string pth = HexController.hexesToPath(path);
         print(pth);
-        if (pth.Length > 1)
+        if (pth.Length >= 1)
             ship.move(pth);
         // Recolor hexes.
         foreach (HexController h in path)

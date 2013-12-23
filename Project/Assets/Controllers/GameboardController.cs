@@ -4,12 +4,12 @@ using System;
 
 public class GameboardController : MonoBehaviour {
     public int size;
-    public int hexRad = 96;
-    HashSet<HexController> hexSet;
+    protected int hexRad = 8;
+    protected HashSet<HexController> hexSet;
     public List<ShipController> shipList;
-    private int turnCounter = 0;
-    List<Team> teams;
-    Gameboard board;
+    protected int turnCounter = 0;
+    protected List<Team> teams;
+    protected Gameboard board;
 
 	// Use this for initialization
 	void Start () {
@@ -17,24 +17,18 @@ public class GameboardController : MonoBehaviour {
         initDisplay();
         shipList = new List<ShipController>();
         teams = new List<Team>();
-        teams.Add(new Team());
-        teams.Add(new Team());
-        ShipController s = createShip("SajedFrigate", findHexController(board.getHex("1616")));
-        ShipController t = createShip("BelliatFrigate", findHexController(board.getHex("343")));
-        shipList.Add(s);
-        shipList.Add(t);
-        teams[0].add(s.myShip);
-        teams[1].add(t.myShip);
-
-        teams[0].setAI(new PlayerAI());
-        teams[1].setAI(new AIController());
-
+        setupFleets();
         turnCounter = shipList.Count;
         onMoveFinish();
         //s.fire(t);
         //GameObject.Find("MenuProvider").GetComponent<ActionMenu>().setShip(s);
         //s.move("123456");
 	}
+
+    protected virtual void setupFleets()
+    {
+
+    }
 
     void Update()
     {
@@ -44,6 +38,9 @@ public class GameboardController : MonoBehaviour {
             if (t.getAI().getAIState() != 0)
                 t.getAI().update();
         }
+        //print(findHexController(HexController.mouseHex.myHex.getUr()));
+        //print(HexController.mouseHex.urHex);
+        //print(HexController.mouseHex.urHex.myHex);
     }
 
     // Event Handling...
@@ -107,11 +104,11 @@ public class GameboardController : MonoBehaviour {
     }
     private void initDisplayExpand(HexController center, int times) 
     {
-        Hex h = center.myHex;
         if (times <= 0)
             return;
+        Hex h = center.myHex;
 
-        if (center.upHex == null)
+        if (center.upHex == null && h.getUp() != null)
         {
             GameObject g = (GameObject)(Instantiate(Resources.Load("HexPrefab")));
             HexController hc = g.GetComponent<HexController>();
@@ -122,7 +119,7 @@ public class GameboardController : MonoBehaviour {
             center.upHex.myHex = center.myHex.getUp();
             hc.dnHex = center;
         }
-        if (center.ulHex == null)
+        if (center.ulHex == null && h.getUl() != null)
         {
             GameObject g = (GameObject)(Instantiate(Resources.Load("HexPrefab")));
             HexController hc = g.GetComponent<HexController>();
@@ -133,7 +130,7 @@ public class GameboardController : MonoBehaviour {
             center.ulHex.myHex = center.myHex.getUl();
             hc.drHex = center;
         }
-        if (center.dlHex == null)
+        if (center.dlHex == null && h.getDl() != null)
         {
             GameObject g = (GameObject)(Instantiate(Resources.Load("HexPrefab")));
             HexController hc = g.GetComponent<HexController>();
@@ -144,7 +141,7 @@ public class GameboardController : MonoBehaviour {
             center.dlHex.myHex = center.myHex.getDl();
             hc.urHex = center;
         }
-        if (center.dnHex == null)
+        if (center.dnHex == null && h.getDn() != null)
         {
             GameObject g = (GameObject)(Instantiate(Resources.Load("HexPrefab")));
             HexController hc = g.GetComponent<HexController>();
@@ -155,7 +152,7 @@ public class GameboardController : MonoBehaviour {
             center.dnHex.myHex = center.myHex.getDn();
             hc.upHex = center;
         }
-        if (center.drHex == null)
+        if (center.drHex == null && h.getDr() != null)
         {
             GameObject g = (GameObject)(Instantiate(Resources.Load("HexPrefab")));
             HexController hc = g.GetComponent<HexController>();
@@ -166,7 +163,7 @@ public class GameboardController : MonoBehaviour {
             center.drHex.myHex = center.myHex.getDr();
             hc.ulHex = center;
         }
-        if (center.urHex == null)
+        if (center.urHex == null && h.getUr() != null)
         {
             GameObject g = (GameObject)(Instantiate(Resources.Load("HexPrefab")));
             HexController hc = g.GetComponent<HexController>();
@@ -180,7 +177,7 @@ public class GameboardController : MonoBehaviour {
         center.finalizeHexes();
 
         // Expand again.
-        if (times > 0)
+        if (times > 1)
         {
             hexSet.Add(center);
             initDisplayExpand(center.upHex, times - 1);
@@ -198,6 +195,18 @@ public class GameboardController : MonoBehaviour {
             hexSet.Add(center.dnHex);
             hexSet.Add(center.drHex);
             hexSet.Add(center.urHex);
+            if (center.upHex.myHex == null)
+                center.upHex.myHex = center.myHex.getUp();
+            if (center.ulHex.myHex == null)
+                center.ulHex.myHex = center.myHex.getUl();
+            if (center.dlHex.myHex == null)
+                center.dlHex.myHex = center.myHex.getDl();
+            if (center.dnHex.myHex == null)
+                center.dnHex.myHex = center.myHex.getDn();
+            if (center.drHex.myHex == null)
+                center.drHex.myHex = center.myHex.getDr();
+            if (center.urHex.myHex == null)
+                center.urHex.myHex = center.myHex.getUr();
         }
     }
 
@@ -213,19 +222,6 @@ public class GameboardController : MonoBehaviour {
         s.transform.position = position.transform.position;
         s.transform.LookAt(s.transform.position - HexController.hexDirToVector(s.myShip.getDirection()));
         s.myShip.setPosition(position.myHex);
-        PropulsionSystem ps = new PropulsionSystem();
-        s.myShip.addPropulsion(0,ps);
-        ps.setMoves(6);
-        ps.setTurnCost(1);
-        ps.setMoveCost(1);
-        TorpedoSystem t1 = new TorpedoSystem();
-        LaserSystem l1 = new LaserSystem();
-        LaserSystem l2 = new LaserSystem();
-        s.myShip.addUtility(0, t1);
-        s.myShip.addUtility(1, l1);
-        s.myShip.addUtility(2, l2);
-        s.myShip.setMaxHP(1);
-        s.myShip.setHP(1);
         return s;
     }
 

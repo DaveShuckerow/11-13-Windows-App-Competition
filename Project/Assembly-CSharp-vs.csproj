@@ -54,7 +54,6 @@
      <Compile Include="Assets\Controllers\AI\AIController.cs" />
      <Compile Include="Assets\Controllers\AI\PlayerAI.cs" />
      <Compile Include="Assets\Controllers\CameraController.cs" />
-     <Compile Include="Assets\Controllers\Fleets\FleetCreator.cs" />
      <Compile Include="Assets\Controllers\GameController.cs" />
      <Compile Include="Assets\Controllers\GameboardController.cs" />
      <Compile Include="Assets\Controllers\HexController.cs" />
@@ -66,6 +65,7 @@
      <Compile Include="Assets\Controllers\Menus\ShipMovementMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\ShipMovementMenuBU.cs" />
      <Compile Include="Assets\Controllers\Menus\ShipStatus.cs" />
+     <Compile Include="Assets\Controllers\Scenarios\EasyScenario.cs" />
      <Compile Include="Assets\Controllers\ShipController.cs" />
      <Compile Include="Assets\Controllers\SystemMarkers\ControlMarker.cs" />
      <Compile Include="Assets\Controllers\SystemMarkers\PropulsionMarker.cs" />
@@ -81,14 +81,21 @@
      <Compile Include="Assets\Model\Ship\ShipTest.cs" />
      <Compile Include="Assets\Model\Ship\ShipTest2.cs" />
      <Compile Include="Assets\Model\Ship\ShipTest3.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Control\Bridge.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Control\ControlSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Control\ControlTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Propulsion\LargePropulsion.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Propulsion\MediumPropulsion.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Propulsion\PropulsionSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Propulsion\PropulsionTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Propulsion\SmallPropulsion.cs" />
      <Compile Include="Assets\Model\Ship\Systems\ShipSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\ShipSystemTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\Shields\MedShield.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Shields\ShieldSystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Shields\ShieldSystemTest.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\Shields\StrongShield.cs" />
+     <Compile Include="Assets\Model\Ship\Systems\Utility\Shields\WeakShield.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\UtilitySystem.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\UtilityTest.cs" />
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\LaserSystem.cs" />

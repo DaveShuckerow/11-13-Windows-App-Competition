@@ -35,26 +35,44 @@ public class HexController : MonoBehaviour {
 
     public void finalizeHexes()
     {
-        if (upHex == null || ulHex == null || dlHex == null || dnHex == null || drHex == null || urHex == null)
-            return;
+        //if (upHex == null || ulHex == null || dlHex == null || dnHex == null || drHex == null || urHex == null)
+            //return;
         // UpHex:
-        upHex.drHex = urHex;
-        upHex.dlHex = ulHex;
+        if (upHex != null)
+        {
+            upHex.drHex = urHex;
+            upHex.dlHex = ulHex;
+        }
         // UlHex:
-        ulHex.urHex = upHex;
-        ulHex.dnHex = dlHex;
+        if (ulHex != null)
+        {
+            ulHex.urHex = upHex;
+            ulHex.dnHex = dlHex;
+        }
         // DlHex:
-        dlHex.upHex = ulHex;
-        dlHex.drHex = dnHex;
+        if (dlHex != null)
+        {
+            dlHex.upHex = ulHex;
+            dlHex.drHex = dnHex;
+        }
         // DnHex:
-        dnHex.ulHex = dlHex;
-        dnHex.urHex = drHex;
+        if (dnHex != null)
+        {
+            dnHex.ulHex = dlHex;
+            dnHex.urHex = drHex;
+        }
         // DrHex:
-        drHex.dlHex = dnHex;
-        drHex.upHex = urHex;
+        if (drHex != null)
+        {
+            drHex.dlHex = dnHex;
+            drHex.upHex = urHex;
+        }
         // UrHex:
-        urHex.dnHex = drHex;
-        urHex.ulHex = upHex; 
+        if (urHex != null)
+        {
+            urHex.dnHex = drHex;
+            urHex.ulHex = upHex;
+        }
         initialized = true;
     }
 

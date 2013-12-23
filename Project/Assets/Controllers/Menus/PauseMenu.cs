@@ -5,14 +5,12 @@ using System;
 public class PauseMenu : MonoBehaviour
 {
     public GUISkin skin;
-    GUIStyle style = new GUIStyle();
     ShipController ship;
-    int pauseStatus = 0;
+    public int pauseStatus = 0;
     int quitStatus = 0;
     // Use this for initialization
     void Start()
     {
-        style.fontSize = 20;
     }
 
     // Update is called once per frame
@@ -40,28 +38,39 @@ public class PauseMenu : MonoBehaviour
         int w = Screen.width;
         int h = Screen.height;
         GUI.skin = skin;
-        if (GUI.Button(new Rect(30, 15, 60, 40), "Pause"))
+        if (GUI.Button(new Rect(0, 0, w/8, h/16), "Pause"))
         {
             pauseStatus = 1;
             Time.timeScale = 0;
+            foreach (MonoBehaviour c in GetComponents<MonoBehaviour>())
+            {
+                if (c != (MonoBehaviour)this)
+                    c.enabled = false;
+            }
         }
         if (pauseStatus == 1)
         {
-            GUI.Box(new Rect(w / 2, 25, 100, 140), "Pause Menu", style);
-            if (GUI.Button(new Rect(w / 2 - 40, 100, 80, 22), "Resume"))
+            GUI.Box(new Rect(0, 0, w, h), "");
+            GUI.Box(new Rect(w / 4, h/8, w/2, 3*h/4),"");
+            if (GUI.Button(new Rect(w / 2 - w/16, h/8, w/8, h/16), "Resume"))
             {
                 Time.timeScale = 1;
+                foreach (MonoBehaviour c in GetComponents<MonoBehaviour>())
+                {
+                    if (c != (MonoBehaviour)this)
+                        c.enabled = true;
+                }
                 pauseStatus = 0;
             }
-            if (GUI.Button(new Rect(w / 2 - 40, 140, 80, 22), "Menu"))
+            if (GUI.Button(new Rect(w / 2 - w / 16, h / 4, w / 8, h / 16), "Menu"))
             {
                 //Placeholder as of 12/21
             }
-            if (GUI.Button(new Rect(w / 2 - 40, 180, 80, 22), "Settings"))
+            if (GUI.Button(new Rect(w / 2 - w/16, 3*h/8, w/8, h/16), "Settings"))
             {
                 //Placeholder as of 12/21
             }
-            if (GUI.Button(new Rect(w / 2 - 40, 220, 80, 22), "Quit"))
+            if (GUI.Button(new Rect(w / 2 - w/16, h/2, w/8, h/16), "Quit"))
             {
                 quitStatus = 1;
             }

@@ -4,6 +4,11 @@ using System.Collections;
 // A beam weapon with 
 public class LaserSystem : WeaponSystem {
 
+    public LaserSystem()
+    {
+        setDamage(1);
+    }
+
     public override double hitProbability(Ship target)
     {
         double chance = 0.0;

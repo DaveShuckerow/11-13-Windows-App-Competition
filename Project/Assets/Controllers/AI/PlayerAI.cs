@@ -19,4 +19,9 @@ public class PlayerAI : AIController {
     {
         base.endMove();
     }
+
+    public override void update()
+    {
+        return;
+    }
 }

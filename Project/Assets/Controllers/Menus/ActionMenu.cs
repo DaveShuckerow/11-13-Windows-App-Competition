@@ -20,6 +20,8 @@ public class ActionMenu : MonoBehaviour
         fired = false;
         //ShipStatus t = gameObject.GetComponent<ShipStatus>();
         //t.setShip(ship);
+        if (s != null)
+            print("Setting a ship: " + s.gameObject.name);
         expand();
     }
 
@@ -30,14 +32,24 @@ public class ActionMenu : MonoBehaviour
 
     void Update()
     {
+        if (ship == null) return;
+        if (!ship.isDoneMoving())
+        {
+            return;
+        }
         if (expanded && expandAmount < Screen.width / 4)
             expandAmount += (int)Math.Round(expandSpeed * 100 * Time.deltaTime);
         if (!expanded && expandAmount >= 0)
             expandAmount -= (int)Math.Round(expandSpeed * 100 * Time.deltaTime);
+        expandAmount = Mathf.Min(Mathf.Max(expandAmount, 0), Screen.width / 4);
     }
 
     void OnGUI()
     {
+        if (GetComponent<PauseMenu>().pauseStatus == 1)
+            return;
+        if (ship == null)
+            return;
         // Draw outline.
         if (expandAmount <= 0) return;
         GUI.skin = skin;
@@ -67,15 +79,17 @@ public class ActionMenu : MonoBehaviour
         GUI.enabled = true;
         if (GUI.Button(new Rect(w - expandAmount, h / 2 + h / 4, expandAmount, h / 8), "Done"))
         {
+            retract();
+            setShip(null);
             if (caller != null)
             {
                 caller.endMove();
-                caller = null;
+//                caller = null;
             }
-            retract();
         }
 
         // Draw the ship's status:
+        if (ship == null) return;
         double maxHP = ship.myShip.getMaxHP();
         double currentHP = ship.myShip.getHP();
         double maxShield = ship.myShip.getMaxShieldHP();

@@ -30,6 +30,11 @@ public class ShipController : MonoBehaviour {
         {
             motion.Add(new ShipControllerLocation(l, board));
         }
+        if (motion.Count < 2)
+        {
+            animType = 3;
+            return;
+        }
 
         if (motion[0].direction == motion[1].direction)
             animType = 2;
@@ -66,7 +71,7 @@ public class ShipController : MonoBehaviour {
 
     public bool isDoneMoving()
     {
-        return animType == 0;
+        return animType <= 0;
     }
 
     void Update()
@@ -128,7 +133,9 @@ public class ShipController : MonoBehaviour {
                 break;
             case 3:
                 animType = 0;
+                hex = board.findHexController(myShip.getPosition());
                 motionIndex = 0;
+                print(myShip.getDirection());
                 break;
         }
 
