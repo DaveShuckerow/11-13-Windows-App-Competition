@@ -87,7 +87,13 @@ public class GameboardController : MonoBehaviour {
 
     public void onGameEnded()
     {
-
+        gameObject.AddComponent<GameEndCounter>();
+        int targetLevel = 2;
+        if (teams[0].getAI() is PlayerAI)
+        {
+            targetLevel = 1;
+        }
+        GetComponent<GameEndCounter>().targetLevel = targetLevel;
     }
 
     // Display Creation
