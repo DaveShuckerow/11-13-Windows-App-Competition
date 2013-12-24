@@ -52,7 +52,8 @@ public class PauseMenu : MonoBehaviour
         {
             GUI.Box(new Rect(0, 0, w, h), "");
             GUI.Box(new Rect(w / 4, h/8, w/2, 3*h/4),"");
-            if (GUI.Button(new Rect(w / 2 - w/16, h/8, w/8, h/16), "Resume"))
+            GUI.Label(new Rect(w / 2 - w / 16, h / 8, w / 8, h / 16), "Game Paused");
+            if (GUI.Button(new Rect(w / 2 - w/16, h/4, w/8, h/16), "Resume"))
             {
                 Time.timeScale = 1;
                 foreach (MonoBehaviour c in GetComponents<MonoBehaviour>())
@@ -62,18 +63,22 @@ public class PauseMenu : MonoBehaviour
                 }
                 pauseStatus = 0;
             }
-            if (GUI.Button(new Rect(w / 2 - w / 16, h / 4, w / 8, h / 16), "Menu"))
+            if (GUI.Button(new Rect(w / 2 - w / 16, 3* h / 8, w / 8, h / 16), "Menu"))
             {
-                //Placeholder as of 12/21
+                Application.LoadLevel(0);
             }
-            if (GUI.Button(new Rect(w / 2 - w/16, 3*h/8, w/8, h/16), "Settings"))
+            if (GUI.Button(new Rect(w / 2 - w/16, 4*h/8, w/8, h/16), "Toggle Sound"))
             {
-                //Placeholder as of 12/21
+                GameObject.Find("MusicPlaya").GetComponent<AudioSource>().mute = !GameObject.Find("MusicPlaya").GetComponent<AudioSource>().mute;
+                if (!GameObject.Find("MusicPlaya").GetComponent<AudioSource>().mute)
+                {
+                    GameObject.Find("MusicPlaya").GetComponent<AudioSource>().Play();
+                }
             }
-            if (GUI.Button(new Rect(w / 2 - w/16, h/2, w/8, h/16), "Quit"))
+            /*if (GUI.Button(new Rect(w / 2 - w/16, 5*h/8, w/8, h/16), "Quit"))
             {
                 quitStatus = 1;
-            }
+            }*/
         }
 
 

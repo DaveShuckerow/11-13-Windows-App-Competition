@@ -139,7 +139,7 @@ public class ShipController : MonoBehaviour {
                 break;
         }
 
-        if (myShip.getHP() <= 0 && !GetComponent<DeathTimer>())
+        if (!GetComponent<DeathTimer>() && myShip.getHP() <= 0)
         {
             die();
         }
@@ -148,6 +148,7 @@ public class ShipController : MonoBehaviour {
     void die() 
     {
         myShip.destroy();
+        board.onShipDestroyed(this);
         gameObject.AddComponent<DeathTimer>();
         GetComponent<DeathTimer>().lifetime = 7;
         GameObject explosion = (GameObject)Instantiate(Resources.Load<GameObject>("BigExplosion"));
@@ -156,7 +157,6 @@ public class ShipController : MonoBehaviour {
 
     void OnDestroy()
     {
-        board.onShipDestroyed(this);
     }
 
 }

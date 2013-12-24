@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Art\Sound\MusicManager.cs" />
+     <Compile Include="Assets\Art\Sound\MusicPlayer.cs" />
      <Compile Include="Assets\Art\WeaponEffects\AnimationBehavior.cs" />
      <Compile Include="Assets\Art\WeaponEffects\DeathTimer.cs" />
      <Compile Include="Assets\Art\WeaponEffects\LaserEffectBehavior.cs" />
@@ -61,6 +63,7 @@
      <Compile Include="Assets\Controllers\HexController.cs" />
      <Compile Include="Assets\Controllers\Menus\ActionMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\ActionMenuBU.cs" />
+     <Compile Include="Assets\Controllers\Menus\CreditsMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\DefeatMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\PauseMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\ShipFireMenu.cs" />
@@ -68,10 +71,13 @@
      <Compile Include="Assets\Controllers\Menus\ShipMovementMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\ShipMovementMenuBU.cs" />
      <Compile Include="Assets\Controllers\Menus\ShipStatus.cs" />
+     <Compile Include="Assets\Controllers\Menus\SupportMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\TipsMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\TitleMenu.cs" />
      <Compile Include="Assets\Controllers\Menus\VictoryMenu.cs" />
      <Compile Include="Assets\Controllers\Scenarios\EasyScenario.cs" />
+     <Compile Include="Assets\Controllers\Scenarios\HardScenario.cs" />
+     <Compile Include="Assets\Controllers\Scenarios\MediumScenario.cs" />
      <Compile Include="Assets\Controllers\ShipController.cs" />
      <Compile Include="Assets\Controllers\SystemMarkers\ControlMarker.cs" />
      <Compile Include="Assets\Controllers\SystemMarkers\PropulsionMarker.cs" />
@@ -111,6 +117,7 @@
      <Compile Include="Assets\Model\Ship\Systems\Utility\Weapons\WeaponTest3.cs" />
      <Compile Include="Assets\Model\Team\Team.cs" />
      <Compile Include="Assets\README.cs" />
+     <Compile Include="Assets\Windows Deployment\StoreCompliance.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">

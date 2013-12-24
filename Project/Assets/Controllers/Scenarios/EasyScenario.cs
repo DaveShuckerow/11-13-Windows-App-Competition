@@ -8,7 +8,7 @@ public class EasyScenario : GameboardController {
         teams.Add(new Team());
         teams.Add(new Team());
 
-        ShipController s1 = createShip("SajedFrigate", findHexController(board.getHex("11")));
+        ShipController s1 = createShip("SajedFrigate", findHexController(board.getHex("11")), 4);
         s1.myShip.addControl(0, new Bridge());
         s1.myShip.addPropulsion(0, new MediumPropulsion());
         s1.myShip.addUtility(0, new WeakShield());
@@ -16,7 +16,7 @@ public class EasyScenario : GameboardController {
         s1.myShip.addUtility(2, new TorpedoSystem());
         s1.myShip.setMaxHP(3);
         
-        ShipController s2 = createShip("SajedCruiser", findHexController(board.getHex("1")));
+        ShipController s2 = createShip("SajedCruiser", findHexController(board.getHex("1")), 4);
         s2.myShip.addControl(0, new Bridge());
         s2.myShip.addPropulsion(0, new LargePropulsion());
         s2.myShip.addUtility(0, new WeakShield());

@@ -67,9 +67,13 @@ public class GameboardController : MonoBehaviour {
 
     public void onShipDestroyed(ShipController dead)
     {
+        print(shipList[turnCounter].gameObject.name);
+        int ind = shipList.IndexOf(dead);
+        if (ind <= turnCounter)
+            turnCounter -= 1;
+        print(shipList[turnCounter].gameObject.name);
         if (shipList.Contains(dead))
             shipList.Remove(dead);
-        
         // Check and see if there is only one team remaining.
         for (int i = 0; i < teams.Count; i++)
         {
@@ -216,17 +220,17 @@ public class GameboardController : MonoBehaviour {
         }
     }
 
-    public ShipController createShip(string name, HexController position)
+    public ShipController createShip(string name, HexController position, int direction = 1)
     {
         GameObject g = (GameObject)Instantiate(Resources.Load(name));
         ShipController s = g.GetComponent<ShipController>();
         s.myShip = new Ship();
         s.myShip.setSystemCount(s.controlSystems, s.utilitySystems, s.propulsionSystems);
-        s.myShip.setDirection(1);
+        s.myShip.setDirection(direction);
         s.board = this;
         s.hex = position;
         s.transform.position = position.transform.position;
-        s.transform.LookAt(s.transform.position - HexController.hexDirToVector(s.myShip.getDirection()));
+        s.transform.LookAt(s.transform.position - HexController.hexDirToVector(direction));
         s.myShip.setPosition(position.myHex);
         return s;
     }

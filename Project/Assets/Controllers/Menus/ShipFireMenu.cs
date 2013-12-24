@@ -27,7 +27,7 @@ public class ShipFireMenu : MonoBehaviour
         }
         if (fireStatus == 0)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && HexController.mouseShip != null && HexController.mouseShip.myShip.getTeam() != ship.myShip.getTeam() && HexController.mouseShip.myShip.getPosition().getHexDistance(ship.myShip.getPosition()) <= 3)
             {
                 fireStatus = 1;
                 target = HexController.mouseShip;

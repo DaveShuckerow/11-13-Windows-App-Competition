@@ -4,7 +4,7 @@ using System.Collections;
 public class GameEndCounter : MonoBehaviour {
 
     public int targetLevel;
-    float lifetime = 5;
+    float lifetime = 15;
 	// Use this for initialization
 	void Start () {
 	

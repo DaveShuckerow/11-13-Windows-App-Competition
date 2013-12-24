@@ -6,7 +6,7 @@ public class ActionMenu : MonoBehaviour
 {
     public GUISkin skin;
     ShipController ship;
-    public AIController caller;
+    public PlayerAI caller;
     int expandAmount = 0;
     public float expandSpeed = 20;
     bool expanded = false;
@@ -83,8 +83,8 @@ public class ActionMenu : MonoBehaviour
             setShip(null);
             if (caller != null)
             {
-                caller.endMove();
-//                caller = null;
+                caller.isDone();
+                caller = null;
             }
         }
 

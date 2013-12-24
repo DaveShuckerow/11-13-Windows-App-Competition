@@ -85,7 +85,7 @@ public class AIController {
                 aiState = 4;
             }
         }
-        if (aiState == 4)
+        if (aiState == 4 && GameObject.Find("BigExplosion(Clone)") == null)
         {
             Debug.Log("Done");
             endMove();

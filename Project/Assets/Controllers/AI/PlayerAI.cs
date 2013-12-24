@@ -20,8 +20,21 @@ public class PlayerAI : AIController {
         base.endMove();
     }
 
+    public void isDone()
+    {
+        aiState = 4;
+    }
+
     public override void update()
     {
+        if (aiState == 4 && GameObject.Find("BigExplosion(Clone)") == null)
+        {
+            aiState = 5;
+        }
+        else if (aiState == 5)
+        {
+            endMove();
+        }
         return;
     }
 }
