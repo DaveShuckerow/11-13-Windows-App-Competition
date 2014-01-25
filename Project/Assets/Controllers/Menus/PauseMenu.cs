@@ -75,10 +75,10 @@ public class PauseMenu : MonoBehaviour
                     GameObject.Find("MusicPlaya").GetComponent<AudioSource>().Play();
                 }
             }
-            /*if (GUI.Button(new Rect(w / 2 - w/16, 5*h/8, w/8, h/16), "Quit"))
+            if (GUI.Button(new Rect(w / 2 - w/16, 5*h/8, w/8, h/16), "Quit"))
             {
                 quitStatus = 1;
-            }*/
+            }
         }
 
 

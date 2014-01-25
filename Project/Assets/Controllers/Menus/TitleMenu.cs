@@ -48,10 +48,10 @@ public class TitleMenu : MonoBehaviour {
         {
             Application.LoadLevel(7);
         }
-        /*if (GUILayout.Button("Quit", GUILayout.ExpandHeight(true)))
+        if (GUILayout.Button("Quit", GUILayout.ExpandHeight(true)))
         {
             Application.Quit();
-        }*/
+        }
         GUILayout.EndHorizontal();
         GUILayout.EndArea();
     }
